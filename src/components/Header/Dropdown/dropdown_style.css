@@ -1,0 +1,27 @@
+.dropdown{
+     /* Adjust the alpha value as needed */
+    justify-content: center;
+    align-items: center;
+    color: #808080;
+    position: fixed;
+    /* background-color: black; */
+    width: 130px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+    margin-top: 10px;
+    /* border: 1px solid #808080 */
+}
+
+.menu_prop{
+    border: 0.5px #808080 solid;
+    width: 100%;
+    padding: 10%;
+    background-color: black;
+    font-size: 12px;
+}
+.menu_prop:hover{
+    background-color: #3F4409;
+    color: white;
+    cursor: pointer;
+}
