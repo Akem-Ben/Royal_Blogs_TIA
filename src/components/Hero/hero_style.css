@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.hero_container{
+    font-family: 'Bebas Neue', sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    height: 100%;
+}
+
+.main_container{
+    background-color: rgb(46, 59, 53);
+    display: flex;
+    padding: 70px;
+    justify-content: center;
+    gap: 30px;
+    height: 380px;
+    overflow: hidden;
+  transition: transform 0.5s ease-in-out;
+}
+
+.show {
+    transform: translateY(-100%);
+  }
+
+.first_container{
+    font-size: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 50%;
+}
+
+.second_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+}
+
+.welcome{
+    font-size: 20px;
+    /* font-family: 'Bebas Neue', sans-serif; */
+    font-family: 'Open Sans', sans-serif;
+}
+
+.btn{
+    background-color: rgb(240, 192, 41);
+    padding: 20px;
+    width: 100%;
+    color: white;
+    border-radius: 30px;
+    border: none
+}
+
+.btn:hover{
+    background-color: transparent;
+    border: 1px solid rgb(240, 192, 41);
+    cursor: pointer;
+}
+
+.btn_container{
+    width: 200px
+}
+
+.delete{
+    background-color: rgb(83, 60, 61);
+    border-radius: 50%;
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    color: #808080;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    font-weight: 1000;
+}
+
+.delete:hover{
+    cursor: pointer;
+    background-color: rgb(117, 74, 78)
+}

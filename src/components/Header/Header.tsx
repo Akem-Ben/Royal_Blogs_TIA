@@ -56,14 +56,14 @@ const Header = () => {
       const intervalId = setInterval(() => {
           const randomIndex = Math.floor(Math.random() * messages.length);
           setCurrentMessage(randomIndex);
-        }, 7000);
+        }, 5000);
         return () => clearInterval(intervalId);
     }, []);
     
   return (
     <>
       <div className="header_container">
-        <section className="first_container">
+        <section className="container_first">
           <div
             style={{
               display: "flex",
@@ -84,7 +84,7 @@ const Header = () => {
                 justifyContent: "flex-start",
                 alignItems: "center",
                 borderBottom: "1px #000000 solid",
-                width: "40%",
+                width: "50%",
               }}
             >
               <div>
@@ -109,7 +109,7 @@ const Header = () => {
                 </span>
               </div>
             </div>
-            <div className="social_media_holder">
+            <div className="social_media_holder" style={{backgroundColor: "red",}}>
               <div
                 style={{
                   transition: "color 0.5s ease-in-out",
@@ -187,7 +187,6 @@ const Header = () => {
                 <li
                   className="icons"
                   onMouseEnter={() => toggleDropdown("HOME")}
-                  onMouseLeave={() => toggleDropdown("HOME")} 
                 >
                  HOME
                   <span onMouseEnter={() => toggleDropdown("HOME")}
@@ -233,7 +232,6 @@ const Header = () => {
             </div>
           </div>
         </section>
-        <div></div>
       </div>
     </>
   );

@@ -4,18 +4,17 @@
 /*=====SECTION 1=====*/
 .header_container{
     background-color: rgb(36, 42, 47);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
     color: #808080;
     font-family: 'Bebas Neue', sans-serif;
-    /* height: 50px; */
 }
 
-.first_container{
+.container_first{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     height: 40px;
     font-size: 18px;
-    /* align-items: center; */
 }
 
 .social_media{
@@ -27,7 +26,7 @@
 
 .social_media_holder{
     display: flex;
-    width: 60%;
+    width: 50%;
     justify-content: space-around;
     border-bottom: 1px solid #000000;
     font-size: 12px;
@@ -41,7 +40,6 @@
 @keyframes blink {
     50% {
         text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
-      /* color: red; */
     }
   }
 
