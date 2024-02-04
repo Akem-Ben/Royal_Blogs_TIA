@@ -26,7 +26,6 @@ const Header = () => {
     BUY_NOW: false,
   });
 
-  const [dropdownData, setDropdownData] = useState<any>([])
   const toggleDropdown = (menuItem: keyof Dropdowns) => {
     setDropdowns((prevDropdowns) => ({
       ...prevDropdowns,
@@ -58,7 +57,6 @@ const Header = () => {
           const randomIndex = Math.floor(Math.random() * messages.length);
           setCurrentMessage(randomIndex);
         }, 7000);
-        setDropdownData(homeMenu)
         return () => clearInterval(intervalId);
     }, []);
     
