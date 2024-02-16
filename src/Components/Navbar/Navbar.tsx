@@ -5,7 +5,7 @@ import './navbar.css'
 
 const Navigation = ()=>{
   return (
-    <div style={{top: '0', position:'fixed', width:'100%', backgroundColor: '#181A2A'}}>
+    <div style={{top: '0', position:'fixed', zIndex: 100, width:'100%', backgroundColor: '#181A2A'}}>
       <Navbar style={{borderBottom: '1px solid #181A2A', boxShadow: '0 4px 8px rgba(0,0,0,0.4)'}} bg="#181A2A" data-bs-theme="dark">
         <Container style={{
           display: 'flex',
@@ -38,8 +38,8 @@ const Navigation = ()=>{
           </Nav>
           </div>
           <div>
-          <Button variant="success">Signup</Button>{' '}
-          <Button variant="success">Login</Button>{' '}
+          <Button variant="success">Signin</Button>{' '}
+          {/* <Button variant="success">Login</Button>{' '} */}
           </div>
           <div>
         <InputGroup style={{
