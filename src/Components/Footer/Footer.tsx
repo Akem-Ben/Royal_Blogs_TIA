@@ -25,7 +25,7 @@ const Footer = () => {
           <div style={{backgroundColor: '#141624'}}>
             <div>Quick Links</div>
             <div className="links" style={{color: '#97989F', fontFamily: 'Inter', display: 'flex', gap: '10px', flexDirection: 'column', marginTop: '20px'}}>
-            <ListGroup.Item className="links">Home</ListGroup.Item>
+            <ListGroup.Item className="links"><a href="/">Home</a></ListGroup.Item>
             <ListGroup.Item className="links">About</ListGroup.Item>
             <ListGroup.Item className="links">Blogs</ListGroup.Item>
             <ListGroup.Item className="links">Archive</ListGroup.Item>
@@ -52,6 +52,7 @@ const Footer = () => {
         <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '30px'}}>
           <div style={{display: 'flex', gap: '10px'}}>
             <div>
+            <Navbar.Brand href="/">
             <img
               alt=""
               src={logo}
@@ -59,9 +60,10 @@ const Footer = () => {
               height="60"
               className="d-inline-block align-top"
             />{' '}
+            </Navbar.Brand>
             </div>
           <div style={{marginTop: '8px'}}>
-            <Navbar.Brand href="#home">
+            <Navbar.Brand href="/">
             <div>
           <span style={{
             fontFamily: 'Inter'

@@ -14,6 +14,7 @@ interface PostInitial {
   post: string;
 }
 const LandingPage = () => {
+
   const initialPost: PostInitial = {
     image: "",
     title: "",
@@ -38,6 +39,7 @@ const LandingPage = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     event.preventDefault();
+    console.log(event.target.value)
     setSavePost({...savePost, post: event.target.value})
   };
 
@@ -49,7 +51,6 @@ const LandingPage = () => {
   };
 
   const handlePost = () => {
-    console.log(savePost)
     setShowPost([...showPost, savePost])
     setSavePost(initialPost);
     return setShowModal(false);

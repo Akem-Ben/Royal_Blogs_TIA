@@ -37,7 +37,7 @@ const Postmodal = (Props: Props) => {
             justifyContent: "center",
           }}
         >
-          <Modal.Dialog style={{ width: "100%" }}>
+          <Modal.Dialog className="custom-modal">
             <div style={{ marginTop: "10px" }}>
               <div
                 style={{
@@ -49,7 +49,8 @@ const Postmodal = (Props: Props) => {
               >
                 <Form.Group className="mb-3" style={{ width: "90%" }}>
                   <Form.Label>Post Title</Form.Label>
-                  <Form.Control type="text" onChange={Props.titleChange}/>
+                  <Form.Control type="text" onChange={Props.titleChange} style={{backgroundColor: '#181A2A',
+                  color: 'white'}}/>
                   {/* <Form.Label style={{ marginTop: "10px" }}>
                     Post Cover Image
                   </Form.Label>
@@ -66,6 +67,7 @@ const Postmodal = (Props: Props) => {
                   border: "1px gray solid",
                   borderRadius: "10px",
                   padding: "10px",
+                  color: 'white'
                 }}
               />
             </Modal.Body>
@@ -76,8 +78,8 @@ const Postmodal = (Props: Props) => {
                 justifyContent: 'space-between'
             }}
             >
-              <Button className="post_btn" style={{backgroundColor: 'green'}} variant="secondary" onClick={Props.onClose}>Close</Button>
-              <Button className="post_btn" style={{backgroundColor: 'green'}} variant="primary" onClick={Props.onClick}>Save changes</Button>
+              <Button className="post_btn" onClick={Props.onClose}>Close</Button>
+              <Button className="post_btn" onClick={Props.onClick}>Save changes</Button>
             </Modal.Footer>
           </Modal.Dialog>
         </div>

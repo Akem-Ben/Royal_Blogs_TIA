@@ -1,3 +1,24 @@
 .post_btn:hover{
-    background-color: white;
+    background-color: #4B6BFB;
 }
+
+.custom-modal {
+    width: 100%;
+    background-color: #242535;
+  }
+  
+  .custom-modal .modal-content {
+    background-color: #242535;
+    color: white;
+  }
+  
+  .custom-modal .form-control {
+    background-color: #181a2a;
+    color: white;
+  }
+  
+  .custom-modal textarea {
+    background-color: #181a2a;
+    color: white;
+  }
+  

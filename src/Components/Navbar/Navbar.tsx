@@ -14,7 +14,7 @@ const Navigation = ()=>{
           justifyContent: 'space-between',
         }}>
             <div style={{}}>
-            <Navbar.Brand href="#home">
+            <Navbar.Brand href="/">
         <img
               alt=""
               src={logo}
@@ -33,7 +33,7 @@ const Navigation = ()=>{
           </div>
           <div style={{width: '40%'}}>
           <Nav style={{ display: 'flex', justifyContent: 'space-around'}} className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="#features">Latest News</Nav.Link>
             <Nav.Link href="#pricing">Pages</Nav.Link>
             <Nav.Link href="#pricing">Contact Us</Nav.Link>

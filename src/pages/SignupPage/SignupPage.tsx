@@ -1,10 +1,16 @@
+import Footer from "../../Components/Footer/Footer"
+import Navigation from "../../Components/Navbar/Navbar"
+import RegisterForm from "../../Components/RegisterForm/RegisterForm"
+
 
 
 const SignupPage = () => {
 
     return (
         <>
-        <p>Hello</p>
+        <Navigation />
+        <RegisterForm />
+        <Footer />
         </>
     )
 }
