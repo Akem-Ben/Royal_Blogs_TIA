@@ -7,6 +7,7 @@ import { FaRegPenToSquare } from "react-icons/fa6";
 import "./landing.css";
 import { useState } from "react";
 import Postmodal from "../../Components/Modals/Postmodal";
+import { Col, Container, Row } from "react-bootstrap";
 
 interface PostInitial {
   image: string;
@@ -78,6 +79,36 @@ const LandingPage = () => {
       <PostsSection Prop={showPost}/>
       <AdvertBanner />
       <Footer />
+      {/* <Container style={{color: 'red', backgroundColor: 'yellow'}}>
+        <Row>
+          <Col md={3}>
+            Content 1
+          </Col>
+          <Col md={1}>
+            Content 2
+          </Col>
+          <Col md={3}>
+            Content 3
+          </Col>
+          <Col md={3}>
+            Content 4
+          </Col>
+        </Row>
+        <Row>
+          <Col md={2}>
+            Content 1
+          </Col>
+          <Col md={3}>
+            Content 2
+          </Col>
+          <Col md={5}>
+            Content 3
+          </Col>
+          <Col md={2}>
+            Content 4
+          </Col>
+        </Row>
+      </Container> */}
       (
       {showModal && (
         <Postmodal

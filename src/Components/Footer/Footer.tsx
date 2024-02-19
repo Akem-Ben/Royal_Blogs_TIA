@@ -5,7 +5,7 @@ import logo from '../../assets/header/navbar/Union.png'
 
 const Footer = () => {
   return (
-    <div style={{padding: '5rem', marginTop: "5rem", backgroundColor: '#141624', display: 'flex', justifyContent: 'center'}}>
+    <div style={{bottom: '0', padding: '5rem', marginTop: "5rem", backgroundColor: '#141624', display: 'flex', justifyContent: 'center'}}>
       <div style={{ color: "white", backgroundColor: '#141624', width: '90%'}}>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
           <div style={{display: 'flex', flexDirection: 'column', width: '20rem'}}>

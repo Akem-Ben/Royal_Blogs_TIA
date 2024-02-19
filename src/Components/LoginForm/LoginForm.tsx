@@ -1,34 +1,79 @@
+import { useFormik } from 'formik';
+import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
+import * as Yup from 'yup'
+
 
 const LoginForm = () => {
+  const [loading, setLoading] = useState(false)
+
+  const initialFormlikLoginValues = {
+    loginKey: '',
+    password: ''
+  }
+
+  const loginFormik = useFormik({
+    initialValues: initialFormlikLoginValues,
+    validationSchema: Yup.object({
+      loginKey: Yup.string().required('Enter email or username'),
+      password: Yup.string().min(8, 'Password should be 8 characters or more').required('Enter password')
+    }),
+
+    onSubmit: async(values, {setSubmitting})=>{
+      try{
+        setLoading(true)
+
+        const loginForm = new FormData()
+
+        loginForm.append('loginKey', values.loginKey)
+        loginForm.append('password', values.password)
+
+        console.log(loginForm)
+
+      }catch(error){
+        console.log(error)
+      }finally{
+        setSubmitting(false)
+      }
+    }
+  })
+
   return (
     <div style={{display: 'flex', justifyContent: 'center', alignContent: 'center', color: 'white', fontFamily: 'Inter'}}>
-    <div style={{marginTop: '100px', width: '40%', backgroundColor: '#242535', padding: '30px', borderRadius: '10px'}}>
+    <form style={{marginTop: '100px', width: '40%', backgroundColor: '#242535', padding: '30px', borderRadius: '10px'}} onSubmit={loginFormik.handleSubmit}>
       <div>
       <Form.Label htmlFor="inputPassword5" style={{marginTop: '10px'}}>Email/Username</Form.Label>
       <Form.Control
         type="text"
-        id="inputText"
-        aria-describedby="inputText"
+        id="loginKey"
+        aria-describedby="loginKey"
+        name="loginKey"
+        value={loginFormik.values.loginKey}
+        onChange={loginFormik.handleChange}
         style={{backgroundColor: '#181A2A', color: "white", border: '2px solid #262837'}}
       />
+      {loginFormik.errors.loginKey ? <div><em style={{color: 'red', fontSize: '12px'}}>{loginFormik.errors.loginKey}</em></div>: null}
       </div>
       <div>
       <Form.Label htmlFor="inputPassword5" style={{marginTop: '10px'}}>Password</Form.Label>
       <Form.Control
         type="password"
-        id="inputPassword5"
-        aria-describedby="passwordHelpBlock"
+        id="password"
+        aria-describedby="password"
+        value={loginFormik.values.password}
+        onChange={loginFormik.handleChange}
         style={{backgroundColor: '#181A2A', color: "white", border: '2px solid #262837'}}
       />
+      {loginFormik.errors.password ? <div><em style={{color: 'red', fontSize: '12px'}}>{loginFormik.errors.password}</em></div>: null}
       </div>
-      <Button style={{width: '100%', marginTop: '20px'}}>Login</Button>
+      <Button type='submit' style={{width: '100%', marginTop: '20px'}}>{loading ? 'Loading...' : 'Login'}</Button>
 
       <div style={{fontSize: "13px", marginTop: '20px', fontFamily: 'sans-serif'}}><em><strong>Not Registered? Click <a href="/signup" style={{color: 'green'}}>here</a> to Register</strong></em></div>
-    </div>
+    </form>
     </div>
   );
 }
+
 
 export default LoginForm
