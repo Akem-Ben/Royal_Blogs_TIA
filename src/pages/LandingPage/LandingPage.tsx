@@ -16,6 +16,10 @@ interface PostInitial {
 }
 const LandingPage = () => {
 
+  const user:any = localStorage.getItem("user")
+  const mainUser = JSON.parse(user)
+
+
   const initialPost: PostInitial = {
     image: "",
     title: "",
@@ -60,6 +64,8 @@ const LandingPage = () => {
     <div>
       <Navigation />
       <HeroSection Posts = {showPost} />
+
+      {mainUser ? (
       <div
         onClick={handleModal}
         className="write_icon"
@@ -75,6 +81,7 @@ const LandingPage = () => {
           style={{ width: "30px", height: "30px", color: "white" }}
         />
       </div>
+      ):(null)}
       <AdvertBanner />
       <PostsSection Prop={showPost}/>
       <AdvertBanner />
