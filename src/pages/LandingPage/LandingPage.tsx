@@ -63,6 +63,11 @@ const LandingPage = () => {
   return (
     <div>
       <Navigation />
+      {!mainUser ? (
+      <div style={{backgroundColor: 'red', marginTop: '60px', display: 'flex', justifyContent: 'center'}}>
+        <div style={{color: 'white'}}>Signin to be able to make a blog post</div>
+      </div>
+      ):(null)}
       <HeroSection Posts = {showPost} />
 
       {mainUser ? (
@@ -81,7 +86,7 @@ const LandingPage = () => {
           style={{ width: "30px", height: "30px", color: "white" }}
         />
       </div>
-      ):(null)}
+       ):(null)}
       <AdvertBanner />
       <PostsSection Prop={showPost}/>
       <AdvertBanner />

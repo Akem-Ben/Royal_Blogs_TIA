@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import LandingPage from './pages/LandingPage/LandingPage'
 import SignupPage from './pages/SignupPage/SignupPage'
 import LoginPage from './pages/LoginPage/LoginPage'
+import { SinglePost } from './pages/SinglePostPage/SinglePost'
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
       <Route path="/signup" element={<SignupPage />} />
       <Route path='/login' element={<LoginPage />} />
       <Route path='*' element={<h1>Not Found</h1>} />
+      <Route path='/singlepost' element={<SinglePost />} />
     </Routes>
     </>
   )

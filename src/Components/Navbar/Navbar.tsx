@@ -3,8 +3,14 @@ import logo from '../../assets/header/navbar/Union.png';
 import { CiSearch } from "react-icons/ci";
 import './navbar.css'
 import { useNavigate } from 'react-router-dom';
+import profile from '../../assets/header/navbar/profile.jpeg'
 
 const Navigation = ()=>{
+
+  const user:any = localStorage.getItem("user")
+  const mainUser = JSON.parse(user)
+
+
   const navigate = useNavigate()
   return (
     <div style={{top: '0', position:'fixed', zIndex: 100, width:'100%', backgroundColor: '#181A2A'}}>
@@ -39,10 +45,16 @@ const Navigation = ()=>{
             <Nav.Link href="#pricing">Contact Us</Nav.Link>
           </Nav>
           </div>
+          {mainUser ? (
+             <div style={{display: 'flex', width: '10em', justifyContent: 'space-between'}}>
+             <Button onClick={() => navigate('/')} variant="success">Logout</Button>{' '}
+             <Nav.Link href="#profile"><img src={mainUser.profile_image.length ? mainUser.profile_image : profile} width='30px' alt="profile image" style={{borderRadius: '50%', marginTop: '3px'}}/></Nav.Link>
+             </div>
+          ):(
           <div>
           <Button onClick={() => navigate('/login')} variant="success">Signin</Button>{' '}
-          {/* <Button variant="success">Login</Button>{' '} */}
           </div>
+          )}
           <div>
         <InputGroup style={{
           display: 'flex',

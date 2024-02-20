@@ -1,0 +1,8 @@
+.show_comments_link{
+    text-decoration: underline;
+    color: white;
+}
+
+.show_comments_link:hover{
+    cursor: pointer;
+}
