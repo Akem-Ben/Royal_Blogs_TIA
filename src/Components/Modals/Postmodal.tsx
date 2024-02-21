@@ -4,10 +4,11 @@ import './postmodal.css'
 interface Props {
     onClose: () => void;
     children?: React.ReactNode;
-    onClick: () => void;
+    onClick: (e: any) => void;
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
     titleChange: (e:React.ChangeEvent<HTMLInputElement>) => void
     imageChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    loading: boolean
   }
 
 const Postmodal = (Props: Props) => {
@@ -47,20 +48,21 @@ const Postmodal = (Props: Props) => {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
-              >
+              > 
                 <Form.Group className="mb-3" style={{ width: "90%" }}>
                   <Form.Label>Post Title</Form.Label>
                   <Form.Control type="text" onChange={Props.titleChange} style={{backgroundColor: '#181A2A',
-                  color: 'white'}}/>
+                  color: 'white'}} required />
                   <Form.Label style={{ marginTop: "10px" }}>
                     Post Cover Image
                   </Form.Label>
-                  <Form.Control type="file" onChange={Props.imageChange}/>
+                  <Form.Control type="file" onChange={Props.imageChange} required/>
                 </Form.Group>
               </div>
             </div>
             <Modal.Body>
               <textarea
+                required
                 onChange={Props.onChange}
                 style={{
                   width: "100%",
@@ -80,7 +82,7 @@ const Postmodal = (Props: Props) => {
             }}
             >
               <Button className="post_btn" onClick={Props.onClose}>Close</Button>
-              <Button className="post_btn" onClick={Props.onClick}>Save changes</Button>
+              <Button className="post_btn" onClick={Props.onClick}>{Props.loading ? 'Loading...' : 'Save Changes'}</Button>
             </Modal.Footer>
           </Modal.Dialog>
         </div>

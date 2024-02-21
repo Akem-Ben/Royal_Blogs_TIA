@@ -1,16 +1,7 @@
 import { Card } from "react-bootstrap";
-import postImg from "../../../assets/body/post.png";
-import postImg2 from "../../../assets/body/postimg2.png";
-import postImg3 from "../../../assets/body/postimg3.png";
-import postImg4 from "../../../assets/body/postimg4.png";
-import postImg5 from "../../../assets/body/postimg5.png";
-import postImg6 from "../../../assets/body/postimg6.png";
-import postImg7 from "../../../assets/body/postimg7.png";
-import postImg8 from "../../../assets/body/postimg8.png";
-import postImg9 from "../../../assets/body/postimg9.png";
 import "./postcard.css";
-import user from "../../../assets/header/hero/user.png";
 import { convertISOtoDate } from "../../../helper functions/helpers";
+import { useNavigate } from "react-router-dom";
 
 interface PostProps {
   title: string;
@@ -19,18 +10,9 @@ interface PostProps {
 }
 
 function PostsCard({ Data }: { Data: PostProps[] }) {
+  console.log("dat", Data);
 
-  const postPicturesArray = [
-    postImg,
-    postImg2,
-    postImg3,
-    postImg4,
-    postImg5,
-    postImg6,
-    postImg7,
-    postImg8,
-    postImg9
-  ];
+  const navigate = useNavigate()
 
   return (
     <>
@@ -39,15 +21,31 @@ function PostsCard({ Data }: { Data: PostProps[] }) {
           <Card
             key={index}
             style={{
-              width: "23rem",
+              width: "360px",
               padding: "1rem",
               border: "2px solid #242535",
               backgroundColor: "#181A2A",
               fontFamily: "sans-serif",
             }}
+            onClick={()=> navigate(`/singlepost/${item.dataValues.id}`)}
             className="post_container"
           >
-            <Card.Img variant="top" src={postPicturesArray[index % postPicturesArray.length]} />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                height: "300px",
+                overflow: "hidden",
+                border: '1px solid #242535'
+              }}
+            >
+              <img
+                src={item.dataValues.postImage}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            </div>
             <div
               style={{
                 marginTop: "30px",
@@ -72,11 +70,13 @@ function PostsCard({ Data }: { Data: PostProps[] }) {
                 style={{
                   color: "white",
                   fontFamily: "sans-serif",
-                  fontSize: "25px",
+                  fontSize: "18px",
                   fontWeight: 400,
                 }}
               >
-                {item.title.length > 77 ? `${item.title.substring(0, 77)}...` : item.title}
+                {item.dataValues.title.length > 77
+                  ? `${item.dataValues.title.substring(0, 77)}...`
+                  : item.dataValues.title}
               </Card.Title>
             </div>
             <div
@@ -90,10 +90,10 @@ function PostsCard({ Data }: { Data: PostProps[] }) {
               }}
             >
               <div style={{ width: "2em" }}>
-                <Card.Img src={user} width="1px" height="2px" />
+                <Card.Img src={item.ownerImage} width="1px" height="2px" />
               </div>
-              <div>Jason Francisco</div>
-              <div>{convertISOtoDate(new Date())}</div>
+              <div>{item.ownerName}</div>
+              <div>{convertISOtoDate(item.dataValues.createdAt)}</div>
             </div>
           </Card>
         ))

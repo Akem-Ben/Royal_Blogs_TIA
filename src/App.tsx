@@ -18,7 +18,7 @@ function App() {
       <Route path="/signup" element={<SignupPage />} />
       <Route path='/login' element={<LoginPage />} />
       <Route path='*' element={<h1>Not Found</h1>} />
-      <Route path='/singlepost' element={<SinglePost />} />
+      <Route path='/singlepost/:postId' element={<SinglePost />} />
     </Routes>
     </>
   )

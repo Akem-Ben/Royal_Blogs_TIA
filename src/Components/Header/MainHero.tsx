@@ -3,6 +3,8 @@ import HeroCard from '../Cards/HeroCard/HeroCard';
 
 const HeroSection = ({Posts}: any) => {
 
+    console.log('p', Posts)
+
     return (
         <section style={{display: 'flex', position: 'relative', zIndex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '80px'}}>
             <div>

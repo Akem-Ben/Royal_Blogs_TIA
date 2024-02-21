@@ -8,20 +8,22 @@ import "./landing.css";
 import { useEffect, useState } from "react";
 import Postmodal from "../../Components/Modals/Postmodal";
 import { Col, Container, Row } from "react-bootstrap";
+import { allPosts, createPost } from "../../axiosFolder/axiosFunctions/postAxios/postAxios";
+import { showErrorToast, showSuccessToast } from "../../utilities/toastifySetup";
 
 interface PostInitial {
-  image: string;
   title: string;
   post: string;
 }
 const LandingPage = () => {
+
+  // createPost
 
   const user:any = localStorage.getItem("user")
   const mainUser = JSON.parse(user)
 
 
   const initialPost: PostInitial = {
-    image: "",
     title: "",
     post: "",
   };
@@ -34,11 +36,17 @@ const LandingPage = () => {
 
   const [postImage, setPostImage] = useState<any>("")
 
+  const [loading, setLoading] = useState(false)
+
   const handleModal = () => {
     return setShowModal(true);
   };
 
   const handleModalClose = () => {
+    setSavePost({
+      title: "",
+      post: "",
+    })
     return setShowModal(false);
   };
 
@@ -65,16 +73,77 @@ const LandingPage = () => {
     }
     };
 
-  const handlePost = () => {
-    setShowPost([...showPost, savePost])
-    setSavePost(initialPost);
+  const handlePost = async(event:React.FormEvent<HTMLFormElement>) => {
+    try{
+      event.preventDefault()
+
+     if(savePost.title === ''){
+     return showErrorToast('Title Required')
+     }
+
+    if(savePost.post === '' ){
+    return showErrorToast('Post Text Required')
+     } 
+
+     if(postImage === ''){ 
+     return showErrorToast('Cover Image Required')
+     }
+
+    setLoading(true)
+    const form = new FormData()
+
+    form.append('title', savePost.title)
+    form.append('postText', savePost.post)
+    form.append('postImage', postImage)
+
+    const data = await createPost(form)
+
+    if(data.status !==200){
+      setLoading(false)
+      return showErrorToast(data.data.message)
+    }
+
+    setSavePost({
+      title: "",
+      post: "",
+    })
+
+    setPostImage("")
+
+    showSuccessToast(data.data.message)
+
+    fetchPosts()
+
+    setLoading(false)
+
     return setShowModal(false);
+
+    }catch (error) {
+      console.log(error)
+    } finally {
+      
+    }
   };
 
 
+  const fetchPosts = async() => {
+    try {
+      const data = await allPosts()
+      
+      return setShowPost(data.data.postsWithOwners)
+
+    }catch (error) {
+      console.log(error)
+    } finally {
+      
+    }
+  }
+
+
+
   useEffect(()=>{
-    
-  })
+    fetchPosts()
+  }, [])
   return (
     <div>
       <Navigation />
@@ -143,8 +212,9 @@ const LandingPage = () => {
           onClose={handleModalClose}
           onChange={handlePostBodyChange}
           titleChange={handlePostTitleChange}
-          imageChange={handleImageChange}
-        />
+          imageChange={handleImageChange} 
+          loading={loading}
+          />
       )}
       )
     </div>

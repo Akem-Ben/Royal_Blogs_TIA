@@ -12,4 +12,22 @@ export const createPost = async(body:any)=>{
     }catch(error:any){
       return error.response
     }
+}
+
+export const allPosts = async()=>{
+    try{
+        const response = await axios.get('/post/allPosts')
+        return response
+    }catch(error:any){
+        return error.response
+      }
+}
+
+export const singlePost = async(id:string)=>{
+  try{
+    const response = await axios.get(`/post/singlePost/${id}`)
+    return response
+}catch(error:any){
+    return error.response
   }
+}
