@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
-import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { registerUser } from '../../axiosFolder/axiosFunctions/userAxios/userAxios';
 import { showErrorToast, showSuccessToast } from '../../utilities/toastifySetup';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
 
   const [loading, setLoading] = useState(false)
-  const [profileImage, setProfileImage] = useState<any>("")
+
+  const navigate = useNavigate()
 
   const initialFormlikValues = {
     fullName: '',
@@ -27,7 +28,7 @@ const RegisterForm = () => {
     const { files } = event.currentTarget;
     const file = files && files[0]
     if(file){
-      setProfileImage(file)
+      formik.setFieldValue('image', file)
     }
     };
 
@@ -48,7 +49,7 @@ const RegisterForm = () => {
         setLoading(true)
         const newForm = new FormData();
 
-        newForm.set('profileImage', profileImage);
+        newForm.append('profileImage', values.image);
         newForm.append('fullName', values.fullName)
         newForm.append('userName', values.userName)
         newForm.append('password', values.password)
@@ -57,13 +58,24 @@ const RegisterForm = () => {
 
         const data = await registerUser(newForm)
 
+        console.log(data);
         if(data.status !== 200){
           setLoading(false)
           return showErrorToast(data.data.message)
         }
 
-        // showSuccessToast()
-        // console.log(data);
+        showSuccessToast(data.data.message)
+
+        values.image = ''
+        values.fullName = ''
+        values.userName = ''
+        values.password = ''
+        values.confirmPassword = ''
+        values.email = ''
+
+        setLoading(false)
+
+       return navigate('/login')
   
       } catch (error) {
         console.log(error)
@@ -78,15 +90,15 @@ const RegisterForm = () => {
     <div style={{display: 'flex', justifyContent: 'center', alignContent: 'center', color: 'white', fontFamily: 'Inter'}}>
     <form style={{marginTop: '100px', width: '40%', backgroundColor: '#242535', padding: '30px', borderRadius: '10px'}} onSubmit={formik.handleSubmit}>
     <div>
-      <Form.Label htmlFor="inputPassword5">Profile Image</Form.Label>
+      <Form.Label htmlFor="profileImage">Profile Image</Form.Label>
       <Form.Control
         type="file"
-        id="image"
-        aria-describedby="image"
+        id="profileImage"
+        aria-describedby="profileImage"
         style={{backgroundColor: '#181A2A', color: "white", border: '2px solid #262837'}}
         name='profileImage'
         onChange={handleImageChange}
-        value={profileImage}
+        // value={formik.values.image}
       />
       {formik.errors.image ? <div><em style={{color: 'red', fontSize: '12px'}}>{formik.errors.image}</em></div> : null}
       </div>

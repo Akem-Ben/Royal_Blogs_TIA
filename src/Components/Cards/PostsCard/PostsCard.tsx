@@ -14,6 +14,8 @@ import { convertISOtoDate } from "../../../helper functions/helpers";
 
 interface PostProps {
   title: string;
+  id: string;
+  image: string;
 }
 
 function PostsCard({ Data }: { Data: PostProps[] }) {

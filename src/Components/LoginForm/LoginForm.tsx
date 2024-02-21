@@ -3,10 +3,17 @@ import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import * as Yup from 'yup'
+import { loginUser } from '../../axiosFolder/axiosFunctions/userAxios/userAxios';
+import { showErrorToast, showSuccessToast } from '../../utilities/toastifySetup';
+import { FaLessThanEqual } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false)
+
+  const navigate = useNavigate()
 
   const initialFormlikLoginValues = {
     loginKey: '',
@@ -29,7 +36,27 @@ const LoginForm = () => {
         loginForm.append('loginKey', values.loginKey)
         loginForm.append('password', values.password)
 
-        console.log(loginForm)
+        const data = await loginUser(loginForm)
+
+        console.log(data)
+
+        if(data.status !== 200){
+          setLoading(false)
+          return showErrorToast(data.data.message)
+        }
+
+        showSuccessToast(data.data.message)
+
+        localStorage.setItem('token', data.data.token)
+
+        localStorage.setItem('user', JSON.stringify(data.data.user))
+
+        values.loginKey = ''
+        values.password = ''
+
+        setLoading(false)
+
+        return navigate('/')
 
       }catch(error){
         console.log(error)

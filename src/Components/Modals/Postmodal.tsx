@@ -7,6 +7,7 @@ interface Props {
     onClick: () => void;
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
     titleChange: (e:React.ChangeEvent<HTMLInputElement>) => void
+    imageChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   }
 
 const Postmodal = (Props: Props) => {
@@ -51,10 +52,10 @@ const Postmodal = (Props: Props) => {
                   <Form.Label>Post Title</Form.Label>
                   <Form.Control type="text" onChange={Props.titleChange} style={{backgroundColor: '#181A2A',
                   color: 'white'}}/>
-                  {/* <Form.Label style={{ marginTop: "10px" }}>
+                  <Form.Label style={{ marginTop: "10px" }}>
                     Post Cover Image
                   </Form.Label>
-                  <Form.Control type="file" /> */}
+                  <Form.Control type="file" onChange={Props.imageChange}/>
                 </Form.Group>
               </div>
             </div>

@@ -5,7 +5,7 @@ import Navigation from "../../Components/Navbar/Navbar";
 import PostsSection from "../../Components/Posts/PostsSection";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import "./landing.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Postmodal from "../../Components/Modals/Postmodal";
 import { Col, Container, Row } from "react-bootstrap";
 
@@ -32,6 +32,8 @@ const LandingPage = () => {
 
   const [showPost, setShowPost] = useState<any>([]);
 
+  const [postImage, setPostImage] = useState<any>("")
+
   const handleModal = () => {
     return setShowModal(true);
   };
@@ -44,7 +46,6 @@ const LandingPage = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     event.preventDefault();
-    console.log(event.target.value)
     setSavePost({...savePost, post: event.target.value})
   };
 
@@ -55,11 +56,25 @@ const LandingPage = () => {
     setSavePost({...savePost, title: event.target.value})
   };
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    const { files } = event.currentTarget;
+    const file = files && files[0]
+    if(file){
+      setPostImage(file)
+    }
+    };
+
   const handlePost = () => {
     setShowPost([...showPost, savePost])
     setSavePost(initialPost);
     return setShowModal(false);
   };
+
+
+  useEffect(()=>{
+    
+  })
   return (
     <div>
       <Navigation />
@@ -128,6 +143,7 @@ const LandingPage = () => {
           onClose={handleModalClose}
           onChange={handlePostBodyChange}
           titleChange={handlePostTitleChange}
+          imageChange={handleImageChange}
         />
       )}
       )
