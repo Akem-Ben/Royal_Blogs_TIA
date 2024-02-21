@@ -4,11 +4,15 @@ import LandingPage from './pages/LandingPage/LandingPage'
 import SignupPage from './pages/SignupPage/SignupPage'
 import LoginPage from './pages/LoginPage/LoginPage'
 import { SinglePost } from './pages/SinglePostPage/SinglePost'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
 
   return (
     <>
+    <ToastContainer />
     <Routes>
       <Route path='/' element={<LandingPage />} />
       <Route path="/signup" element={<SignupPage />} />

@@ -4,10 +4,13 @@ import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
+import { registerUser } from '../../axiosFolder/axiosFunctions/userAxios/userAxios';
+import { showErrorToast, showSuccessToast } from '../../utilities/toastifySetup';
 
 const RegisterForm = () => {
 
   const [loading, setLoading] = useState(false)
+  const [profileImage, setProfileImage] = useState<any>("")
 
   const initialFormlikValues = {
     fullName: '',
@@ -20,9 +23,12 @@ const RegisterForm = () => {
 
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (event.target.files && event.target.files.length > 0) {
-        formik.setFieldValue('image', event.target.files[0]);
-      }
+    event.preventDefault()
+    const { files } = event.currentTarget;
+    const file = files && files[0]
+    if(file){
+      setProfileImage(file)
+    }
     };
 
   const formik = useFormik({
@@ -42,14 +48,22 @@ const RegisterForm = () => {
         setLoading(true)
         const newForm = new FormData();
 
-        newForm.append('image', values.image);
+        newForm.set('profileImage', profileImage);
         newForm.append('fullName', values.fullName)
         newForm.append('userName', values.userName)
         newForm.append('password', values.password)
         newForm.append('confirmPassword', values.confirmPassword)
         newForm.append('email', values.email)
-  
-        console.log(newForm);
+
+        const data = await registerUser(newForm)
+
+        if(data.status !== 200){
+          setLoading(false)
+          return showErrorToast(data.data.message)
+        }
+
+        // showSuccessToast()
+        // console.log(data);
   
       } catch (error) {
         console.log(error)
@@ -70,8 +84,9 @@ const RegisterForm = () => {
         id="image"
         aria-describedby="image"
         style={{backgroundColor: '#181A2A', color: "white", border: '2px solid #262837'}}
-        name='image'
+        name='profileImage'
         onChange={handleImageChange}
+        value={profileImage}
       />
       {formik.errors.image ? <div><em style={{color: 'red', fontSize: '12px'}}>{formik.errors.image}</em></div> : null}
       </div>
