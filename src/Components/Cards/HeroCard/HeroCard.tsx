@@ -4,7 +4,9 @@ import { convertISOtoDate } from '../../../helper functions/helpers';
 const HeroCard = ({Data}: any) => {
 
   console.log('hero', Data)
-  const postToDisplay = Data.sort((a:any, b:any)=> b.dataValues.likes - a.dataValues.likes)
+  let postToDisplay:any[] = []
+
+  Data ?  postToDisplay = Data.sort((a:any, b:any)=> b.dataValues.likes - a.dataValues.likes) : null
 
   const newPost = postToDisplay[0]
 

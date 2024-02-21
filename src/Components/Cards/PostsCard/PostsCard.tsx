@@ -2,6 +2,7 @@ import { Card } from "react-bootstrap";
 import "./postcard.css";
 import { convertISOtoDate } from "../../../helper functions/helpers";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 interface PostProps {
   title: string;
@@ -10,13 +11,17 @@ interface PostProps {
 }
 
 function PostsCard({ Data }: { Data: PostProps[] }) {
-  console.log("dat", Data);
+
+
+  useEffect(()=>{
+    Data
+  }, [])
 
   const navigate = useNavigate()
 
   return (
     <>
-      {Data.length ? (
+      {Data ? (
         Data?.map((item: any, index: any) => (
           <Card
             key={index}

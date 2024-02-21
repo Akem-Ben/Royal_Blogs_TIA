@@ -6,51 +6,47 @@ import { convertISOtoDate } from "../../helper functions/helpers";
 import user from "../../assets/header/hero/user.png";
 import postImage from "../../assets/body/post.png";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
-import './singlepost.css'
+import "./singlepost.css";
 import { useParams } from "react-router-dom";
 import { singlePost } from "../../axiosFolder/axiosFunctions/postAxios/postAxios";
 
 export const SinglePost = () => {
+  const loggedInUser: any = localStorage.getItem("user");
 
-    const loggedInUser:any = localStorage.getItem('user')
+  const mainUser = JSON.parse(loggedInUser);
 
-    const mainUser = JSON.parse(loggedInUser)
+  const [loading, setLoading] = useState(false);
 
-    const [loading, setLoading] = useState(false)
+  const [viewComments, setViewComments] = useState(false);
 
-    const [viewComments, setViewComments] = useState(false)
+  const [getPosts, setGetPosts] = useState<any>({});
 
-    const [getPosts, setGetPosts] = useState<any>({})
+  const [postOwner, setPostOwner] = useState<any>({});
 
-    const [postOwner, setPostOwner] = useState<any>({})
+  const getIdParams: any = useParams();
 
-    const getIdParams:any = useParams()
+  const fetchPostDetails = async () => {
+    try {
+      const data = await singlePost(getIdParams.postId);
 
-    const fetchPostDetails = async()=>{
-      try{
-        const data = await singlePost(getIdParams.postId)
+      setPostOwner(data.data.postOwner);
 
-        setPostOwner(data.data.postOwner)
+      console.log(data);
 
-        console.log(data)
-
-        return setGetPosts(data.data.findPost)
-
-      }catch (error) {
-        console.log(error)
-      } finally {
-        
-      }
+      return setGetPosts(data.data.findPost);
+    } catch (error) {
+      console.log(error);
+    } finally {
     }
+  };
 
+  const seeComments = () => {
+    setViewComments(!viewComments);
+  };
 
-    const seeComments = () => {
-        setViewComments(!viewComments)
-    }
-
-    useEffect(()=> {
-      fetchPostDetails()
-    }, [])
+  useEffect(() => {
+    fetchPostDetails();
+  }, []);
   return (
     <>
       <Navigation />
@@ -90,7 +86,12 @@ export const SinglePost = () => {
         >
           <div style={{ display: "flex", width: "150px", gap: "5px" }}>
             <div style={{ width: "2em" }}>
-              <Card.Img src={postOwner.profileImage} width="1px" height="2px" style={{borderRadius: '50%'}}/>
+              <Card.Img
+                src={postOwner.profileImage}
+                width="1px"
+                height="2px"
+                style={{ borderRadius: "50%" }}
+              />
             </div>
             <div>{postOwner.fullName}</div>
           </div>
@@ -106,7 +107,14 @@ export const SinglePost = () => {
             flexDirection: "column",
           }}
         >
-          <div style={{ width: "100%", borderRadius: "10px" }}>
+          <div
+            style={{
+              width: "90%",
+              borderRadius: "10px",
+              height: "700px",
+              overflowY: "scroll",
+            }}
+          >
             <img
               src={getPosts.postImage}
               width="100%"
@@ -126,74 +134,145 @@ export const SinglePost = () => {
           </div>
         </div>
       </div>
-      <div style={{ marginTop: '50px', marginRight: "15rem", marginLeft: "15rem"}}>
+      <div
+        style={{ marginTop: "50px", marginRight: "15rem", marginLeft: "15rem" }}
+      >
         {viewComments ? (
-            <div>
-                <div className='show_comments_link' onClick={seeComments}>Hide Comments</div>
-                <div style={{overflowY: 'scroll', marginTop: '20px', backgroundColor: 'gray', height: '300px', padding: '20px', borderRadius: '10px'}}>
-                    <div style={{ padding: '10px', borderRadius: '10px', border: '1px solid white', marginTop: '10px'}}>
-                    <div style={{display: 'flex', gap: '10px'}}>
-                    <img src={user} alt='user photo' />
-                    <div style={{marginTop: '8px'}}>John Bosco</div>
-                    </div>
-                    <div>
-                        I am unhappy with the way this is treated. Technology requires something better please.
-                    </div>
-                    <div>
-
-                    </div>
-                    </div>
-                    <div style={{ padding: '10px', borderRadius: '10px', border: '1px solid white', marginTop: '10px'}}>
-                    <div style={{display: 'flex', gap: '10px'}}>
-                    <img src={user} alt='user photo' />
-                    <div style={{marginTop: '8px'}}>John Bosco</div>
-                    </div>
-                    <div>
-                        I am unhappy with the way this is treated. Technology requires something better please.
-                    </div>
-                    <div>
-
-                    </div>
-                    </div>
-                    <div style={{ padding: '10px', borderRadius: '10px', border: '1px solid white', marginTop: '10px'}}>
-                    <div style={{display: 'flex', gap: '10px'}}>
-                    <img src={user} alt='user photo' />
-                    <div style={{marginTop: '8px'}}>John Bosco</div>
-                    </div>
-                    <div>
-                        I am unhappy with the way this is treated. Technology requires something better please.
-                    </div>
-                    <div>
-
-                    </div>
-                    </div>
-                    <div style={{ padding: '10px', borderRadius: '10px', border: '1px solid white', marginTop: '10px'}}>
-                    <div style={{display: 'flex', gap: '10px'}}>
-                    <img src={user} alt='user photo' />
-                    <div style={{marginTop: '8px'}}>John Bosco</div>
-                    </div>
-                    <div>
-                        I am unhappy with the way this is treated. Technology requires something better please.
-                    </div>
-                    <div>
-
-                    </div>
-                    </div>
-                </div>
+          <div>
+            <div className="show_comments_link" onClick={seeComments}>
+              Hide Comments
             </div>
-        ):(
-            <div className='show_comments_link' onClick={seeComments}>Show Comments</div>
+            <div
+              style={{
+                overflowY: "scroll",
+                marginTop: "20px",
+                backgroundColor: "gray",
+                height: "300px",
+                padding: "20px",
+                borderRadius: "10px",
+              }}
+            >
+              <div
+                style={{
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "1px solid white",
+                  marginTop: "10px",
+                }}
+              >
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <img src={user} alt="user photo" />
+                  <div style={{ marginTop: "8px" }}>John Bosco</div>
+                </div>
+                <div>
+                  I am unhappy with the way this is treated. Technology requires
+                  something better please.
+                </div>
+                <div></div>
+              </div>
+              <div
+                style={{
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "1px solid white",
+                  marginTop: "10px",
+                }}
+              >
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <img src={user} alt="user photo" />
+                  <div style={{ marginTop: "8px" }}>John Bosco</div>
+                </div>
+                <div>
+                  I am unhappy with the way this is treated. Technology requires
+                  something better please.
+                </div>
+                <div></div>
+              </div>
+              <div
+                style={{
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "1px solid white",
+                  marginTop: "10px",
+                }}
+              >
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <img src={user} alt="user photo" />
+                  <div style={{ marginTop: "8px" }}>John Bosco</div>
+                </div>
+                <div>
+                  I am unhappy with the way this is treated. Technology requires
+                  something better please.
+                </div>
+                <div></div>
+              </div>
+              <div
+                style={{
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "1px solid white",
+                  marginTop: "10px",
+                }}
+              >
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <img src={user} alt="user photo" />
+                  <div style={{ marginTop: "8px" }}>John Bosco</div>
+                </div>
+                <div>
+                  I am unhappy with the way this is treated. Technology requires
+                  something better please.
+                </div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="show_comments_link" onClick={seeComments}>
+            Show Comments
+          </div>
         )}
       </div>
 
       {mainUser ? (
-      <form style={{ marginRight: "15rem", marginLeft: "15rem", marginTop: '20px' }}>
-        <textarea placeholder="Add Comment" style={{backgroundColor: 'gray', padding: '10px', width: '100%', height: '100px', borderRadius: '10px', fontWeight: '400'}} required/>
-        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-        <Button type='submit' style={{width: '20%', marginTop: '20px'}}>{loading ? 'Loading...' : 'Add Comment'}</Button>
+        <form
+          style={{
+            marginRight: "15rem",
+            marginLeft: "15rem",
+            marginTop: "20px",
+          }}
+        >
+          <textarea
+            placeholder="Add Comment"
+            style={{
+              backgroundColor: "gray",
+              padding: "10px",
+              width: "100%",
+              height: "100px",
+              borderRadius: "10px",
+              fontWeight: "400",
+            }}
+            required
+          />
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button type="submit" style={{ width: "20%", marginTop: "20px" }}>
+              {loading ? "Loading..." : "Add Comment"}
+            </Button>
+          </div>
+        </form>
+      ) : (
+        <div
+          style={{
+            marginRight: "15rem",
+            marginLeft: "15rem",
+            marginTop: "20px",
+            color: "#A6A6AC",
+            fontFamily: "sans-serif",
+            fontWeight: "600",
+          }}
+        >
+          <em>Signin to make a comment</em>
         </div>
-      </form>
-      ):(<div style={{ marginRight: "15rem", marginLeft: "15rem", marginTop: '20px', color: "#A6A6AC", fontFamily: 'sans-serif', fontWeight: '600' }}><em>Signin to make a comment</em></div>)}
+      )}
       <div
         style={{
           display: "flex",
@@ -202,19 +281,27 @@ export const SinglePost = () => {
           top: "50%",
           position: "fixed",
           cursor: "pointer",
-          width: '100px',
-          height: '100px',
-          justifyContent: 'space-between',
-          marginRight: '10px',
+          width: "100px",
+          height: "100px",
+          justifyContent: "space-between",
+          marginRight: "10px",
         }}
       >
         <div>
-        <AiOutlineLike style={{ width: "30px", height: "30px", color: "white" }} />
-        <div style={{color: 'white',  marginLeft: '10px'}}>{getPosts.likes}</div>
+          <AiOutlineLike
+            style={{ width: "30px", height: "30px", color: "white" }}
+          />
+          <div style={{ color: "white", marginLeft: "10px" }}>
+            {getPosts.likes}
+          </div>
         </div>
         <div>
-        <AiOutlineDislike style={{ width: "30px", height: "30px", color: "white" }} />
-        <div style={{color: 'white', marginLeft: '10px'}}>{getPosts.dislikes}</div>
+          <AiOutlineDislike
+            style={{ width: "30px", height: "30px", color: "white" }}
+          />
+          <div style={{ color: "white", marginLeft: "10px" }}>
+            {getPosts.dislikes}
+          </div>
         </div>
       </div>
       <Footer />

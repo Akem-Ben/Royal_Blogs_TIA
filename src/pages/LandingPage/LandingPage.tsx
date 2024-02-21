@@ -73,6 +73,19 @@ const LandingPage = () => {
     }
     };
 
+    const fetchPosts = async() => {
+      try {
+        const data = await allPosts()
+        
+        return setShowPost(data.data.postsWithOwners)
+  
+      }catch (error) {
+        console.log(error)
+      } finally {
+        
+      }
+    }
+
   const handlePost = async(event:React.FormEvent<HTMLFormElement>) => {
     try{
       event.preventDefault()
@@ -102,17 +115,17 @@ const LandingPage = () => {
       setLoading(false)
       return showErrorToast(data.data.message)
     }
+    setPostImage("")
 
     setSavePost({
       title: "",
       post: "",
     })
+    fetchPosts()
 
-    setPostImage("")
 
     showSuccessToast(data.data.message)
 
-    fetchPosts()
 
     setLoading(false)
 
@@ -124,21 +137,6 @@ const LandingPage = () => {
       
     }
   };
-
-
-  const fetchPosts = async() => {
-    try {
-      const data = await allPosts()
-      
-      return setShowPost(data.data.postsWithOwners)
-
-    }catch (error) {
-      console.log(error)
-    } finally {
-      
-    }
-  }
-
 
 
   useEffect(()=>{

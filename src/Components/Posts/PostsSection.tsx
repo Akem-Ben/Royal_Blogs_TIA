@@ -1,8 +1,13 @@
 import { Button } from "react-bootstrap"
 import PostsCard from "../Cards/PostsCard/PostsCard"
+import { useEffect } from "react"
 
 
 const PostsSection = ({ Prop }: any) => {
+
+    useEffect(()=>{
+        Prop
+    }, [])
 
     return (
         <div style={{marginTop: '4rem', marginLeft: '8rem', marginRight: '8rem'}}>
@@ -13,8 +18,8 @@ const PostsSection = ({ Prop }: any) => {
             </div>
                 <div style={{display: 'flex', width: '100%', justifyContent: 'space-around', marginTop: '2rem'}}>
                 
-                {Prop.length > 9 ? 
-                (<><Button variant="success">Previous Page</Button><Button variant="success">Next Page</Button></>): null}
+                {Prop ? (Prop.length > 9 ? (
+                (<><Button variant="success">Previous Page</Button><Button variant="success">Next Page</Button></>)): (null)): null}
                 </div>
         </div>
         </div>
