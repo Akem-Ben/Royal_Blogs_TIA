@@ -16,7 +16,7 @@ import {
   showErrorToast,
   showSuccessToast,
 } from "../../utilities/toastifySetup";
-import { disLikePost, likePost } from "../../axiosFolder/axiosFunctions/likesAxios/likesAxios";
+import { disLikePost, getAllLikes, likePost } from "../../axiosFolder/axiosFunctions/likesAxios/likesAxios";
 
 export const SinglePost = () => {
   const loggedInUser: any = localStorage.getItem("user");
@@ -51,6 +51,10 @@ export const SinglePost = () => {
 
       event.preventDefault()
 
+      if(!mainUser){
+        return showErrorToast('You must be logged in to be able to like/dislike a post')
+      }
+
       const data = await likePost(post_Id)
 
       return fetchPostDetails()
@@ -65,6 +69,10 @@ export const SinglePost = () => {
     try{
 
       event.preventDefault()
+
+      if(!mainUser){
+        return showErrorToast('You must be logged in to be able to like/dislike a post')
+      }
 
       const data = await disLikePost(post_Id)
 
@@ -134,9 +142,21 @@ export const SinglePost = () => {
     setViewComments(!viewComments);
   };
 
+  const getLikes = async() => {
+    try {
+      const data = await getAllLikes(post_Id);
+
+      console.log(data)
+    } catch (error) {
+      console.log(error);
+    } finally {
+    }
+  }
+
   useEffect(() => {
     fetchPostDetails();
     fetchComments();
+    getLikes();
   }, []);
   return (
     <>
