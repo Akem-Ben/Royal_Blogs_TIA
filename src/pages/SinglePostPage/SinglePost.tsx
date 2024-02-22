@@ -16,7 +16,10 @@ import {
   showErrorToast,
   showSuccessToast,
 } from "../../utilities/toastifySetup";
-import { disLikePost, getAllLikes, likePost } from "../../axiosFolder/axiosFunctions/likesAxios/likesAxios";
+import { disLikePost, getAllDislikes, getAllLikes, likePost } from "../../axiosFolder/axiosFunctions/likesAxios/likesAxios";
+
+import { AiFillLike } from "react-icons/ai";
+import { AiFillDislike } from "react-icons/ai";
 
 export const SinglePost = () => {
   const loggedInUser: any = localStorage.getItem("user");
@@ -39,6 +42,12 @@ export const SinglePost = () => {
 
   const [comments, setComments] = useState<any>([]);
 
+  const [getPostLikes, setGetPostLikes] = useState<any>([])
+
+  const [getPostDislikes, setGetPostDislikes] = useState<any>([])
+
+  const [checkUserLike, setCheckUserLike] = useState(false)
+
   const handleCommentsChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -56,6 +65,10 @@ export const SinglePost = () => {
       }
 
       const data = await likePost(post_Id)
+
+      getDisLikes()
+
+      getLikes()
 
       return fetchPostDetails()
 
@@ -75,6 +88,10 @@ export const SinglePost = () => {
       }
 
       const data = await disLikePost(post_Id)
+
+      getDisLikes()
+
+      getLikes()
 
       return fetchPostDetails()
 
@@ -147,6 +164,37 @@ export const SinglePost = () => {
       const data = await getAllLikes(post_Id);
 
       console.log(data)
+
+      const likesArrayStorage = data.data.likesWithOwners
+
+      likesArrayStorage.map((likes:any)=>{
+        if(likes.ownerName === mainUser.fullName){
+          return setCheckUserLike(true)
+        }
+      })
+
+      return setGetPostLikes(data.data.likesWithOwners)
+
+    } catch (error) {
+      console.log(error);
+    } finally {
+    }
+  }
+
+  const getDisLikes = async() => {
+    try {
+      const data = await getAllDislikes(post_Id);
+
+      const dislikesArrayStorage = data.data.dislikesWithOwners
+
+      dislikesArrayStorage.map((dislikes:any)=>{
+        if(dislikes.ownerName === mainUser.fullName){
+          return setCheckUserLike(false)
+        }
+      })
+
+      return setGetPostDislikes(data.data.dislikesWithOwners)
+
     } catch (error) {
       console.log(error);
     } finally {
@@ -157,6 +205,7 @@ export const SinglePost = () => {
     fetchPostDetails();
     fetchComments();
     getLikes();
+    getDisLikes();
   }, []);
   return (
     <>
@@ -370,19 +419,34 @@ export const SinglePost = () => {
         }}
       >
         <div onClick={likeAPost}>
+        {/* <AiFillLike AiOutlineLike <AiFillDislike AiOutlineDislike /> /> */}
+
+        {checkUserLike ? (
+           <AiFillLike
+           style={{ width: "30px", height: "30px", color: "green"}}
+         />
+        ):(
           <AiOutlineLike
-            style={{ width: "30px", height: "30px", color: "white" }}
-          />
+          style={{ width: "30px", height: "30px", color: "white"}}
+        />
+        )}
           <div style={{ color: "white", marginLeft: "10px" }}>
-            {getPosts.likes}
+            {!getPostLikes ? getPosts.likes : getPostLikes.length}
           </div>
         </div>
         <div onClick={dislikeAPost}>
-          <AiOutlineDislike
+
+          {checkUserLike == false ? (
+            <AiFillDislike
+            style={{ width: "30px", height: "30px", color: "green" }}
+          />
+          ):(
+            <AiOutlineDislike
             style={{ width: "30px", height: "30px", color: "white" }}
           />
+          )}
           <div style={{ color: "white", marginLeft: "10px" }}>
-            {getPosts.dislikes}
+            {!getPostDislikes ? getPosts.dislikes : getPostDislikes.length}
           </div>
         </div>
       </div>
