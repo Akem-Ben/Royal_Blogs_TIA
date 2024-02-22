@@ -48,6 +48,8 @@ export const SinglePost = () => {
 
   const [checkUserLike, setCheckUserLike] = useState(false)
 
+  const [checkUserDislike, setCheckUserDislike] = useState(false)
+
   const handleCommentsChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -65,6 +67,7 @@ export const SinglePost = () => {
       }
 
       const data = await likePost(post_Id)
+
 
       getDisLikes()
 
@@ -163,13 +166,25 @@ export const SinglePost = () => {
     try {
       const data = await getAllLikes(post_Id);
 
-      console.log(data)
-
       const likesArrayStorage = data.data.likesWithOwners
+
+      const dislikesStorageArray = data.data.likesWithOwners
+
+      if(likesArrayStorage.length === 0 && dislikesStorageArray.length === 0){
+        setCheckUserLike(false)
+        setGetPostLikes(data.data.likesWithOwners)
+        return setCheckUserDislike(false)
+      }
 
       likesArrayStorage.map((likes:any)=>{
         if(likes.ownerName === mainUser.fullName){
           return setCheckUserLike(true)
+        }
+      })
+
+      dislikesStorageArray.map((likes:any)=>{
+        if(likes.ownerName === mainUser.fullName){
+          return setCheckUserDislike(false)
         }
       })
 
@@ -187,9 +202,25 @@ export const SinglePost = () => {
 
       const dislikesArrayStorage = data.data.dislikesWithOwners
 
+      const likesArrayStorage = data.data.dislikesWithOwners
+
+
+      if(likesArrayStorage.length === 0 && dislikesArrayStorage.length === 0){
+        setCheckUserLike(false)
+        setGetPostDislikes(data.data.likesWithOwners)
+        return setCheckUserDislike(false)
+      }
+
+
       dislikesArrayStorage.map((dislikes:any)=>{
         if(dislikes.ownerName === mainUser.fullName){
           return setCheckUserLike(false)
+        }
+      })
+
+      likesArrayStorage.map((likes:any)=>{
+        if(likes.ownerName === mainUser.fullName){
+          return setCheckUserDislike(true)
         }
       })
 
@@ -436,7 +467,7 @@ export const SinglePost = () => {
         </div>
         <div onClick={dislikeAPost}>
 
-          {checkUserLike == false ? (
+          {checkUserDislike ? (
             <AiFillDislike
             style={{ width: "30px", height: "30px", color: "green" }}
           />
