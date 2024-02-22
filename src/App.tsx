@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage/LoginPage'
 import { SinglePost } from './pages/SinglePostPage/SinglePost'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { VerificationPage } from './pages/VerificationPage/VerificationPage'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Route path='/login' element={<LoginPage />} />
       <Route path='*' element={<h1>Not Found</h1>} />
       <Route path='/singlepost/:postId' element={<SinglePost />} />
+      <Route path="/verification/:token" element={<VerificationPage />} />
     </Routes>
     </>
   )

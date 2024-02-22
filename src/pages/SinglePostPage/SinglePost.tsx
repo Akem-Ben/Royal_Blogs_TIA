@@ -3,12 +3,20 @@ import Navigation from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
 import { Button, Card } from "react-bootstrap";
 import { convertISOtoDate } from "../../helper functions/helpers";
-import user from "../../assets/header/hero/user.png";
-import postImage from "../../assets/body/post.png";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import "./singlepost.css";
 import { useParams } from "react-router-dom";
 import { singlePost } from "../../axiosFolder/axiosFunctions/postAxios/postAxios";
+import { FaRegSmile } from "react-icons/fa";
+import {
+  createComment,
+  getComments,
+} from "../../axiosFolder/axiosFunctions/commentsAxios/commentsAxios";
+import {
+  showErrorToast,
+  showSuccessToast,
+} from "../../utilities/toastifySetup";
+import { disLikePost, likePost } from "../../axiosFolder/axiosFunctions/likesAxios/likesAxios";
 
 export const SinglePost = () => {
   const loggedInUser: any = localStorage.getItem("user");
@@ -25,15 +33,97 @@ export const SinglePost = () => {
 
   const getIdParams: any = useParams();
 
+  const post_Id = getIdParams.postId;
+
+  const [makeComment, setMakeComment] = useState<any>("");
+
+  const [comments, setComments] = useState<any>([]);
+
+  const handleCommentsChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    event.preventDefault();
+    setMakeComment(event.target.value);
+  };
+
+  const likeAPost = async(event:any)=>{
+    try{
+
+      event.preventDefault()
+
+      const data = await likePost(post_Id)
+
+      return fetchPostDetails()
+
+    }catch (error) {
+      console.log(error);
+    } finally {
+    }
+  }
+
+  const dislikeAPost = async(event:any)=>{
+    try{
+
+      event.preventDefault()
+
+      const data = await disLikePost(post_Id)
+
+      return fetchPostDetails()
+
+    }catch (error) {
+      console.log(error);
+    } finally {
+    }
+  }
+
+  const makeComments = async (event: React.FormEvent<HTMLFormElement>) => {
+    try {
+      setLoading(true);
+
+      event.preventDefault();
+
+      const commentText = new FormData();
+
+      commentText.append("commentText", makeComment);
+
+      const data = await createComment(commentText, post_Id);
+
+      if (data.status !== 200) {
+        setLoading(false);
+        return showErrorToast(data.data.message);
+      }
+
+      fetchComments();
+
+      setMakeComment("");
+
+      setLoading(false);
+
+      return showSuccessToast(data.data.message);
+    } catch (error) {
+      console.log(error);
+    } finally {
+    }
+  };
+
   const fetchPostDetails = async () => {
     try {
-      const data = await singlePost(getIdParams.postId);
+      const data = await singlePost(post_Id);
 
       setPostOwner(data.data.postOwner);
 
-      console.log(data);
-
       return setGetPosts(data.data.findPost);
+    } catch (error) {
+      console.log(error);
+    } finally {
+    }
+  };
+
+  const fetchComments = async () => {
+    try {
+      const data = await getComments(post_Id);
+
+      return setComments(data.data.commentsWithOwners);
     } catch (error) {
       console.log(error);
     } finally {
@@ -46,6 +136,7 @@ export const SinglePost = () => {
 
   useEffect(() => {
     fetchPostDetails();
+    fetchComments();
   }, []);
   return (
     <>
@@ -152,78 +243,46 @@ export const SinglePost = () => {
                 borderRadius: "10px",
               }}
             >
-              <div
-                style={{
-                  padding: "10px",
-                  borderRadius: "10px",
-                  border: "1px solid white",
-                  marginTop: "10px",
-                }}
-              >
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <img src={user} alt="user photo" />
-                  <div style={{ marginTop: "8px" }}>John Bosco</div>
+              {comments.length ? (
+                comments.map((comm: any, index: any) => (
+                  <div
+                    key={index}
+                    style={{
+                      padding: "10px",
+                      borderRadius: "10px",
+                      border: "1px solid white",
+                      marginTop: "10px",
+                    }}
+                  >
+                    <div style={{ display: "flex", gap: "10px" }}>
+                      <div>
+                        <img
+                          src={comm.ownerImage}
+                          alt="user photo"
+                          width="20px"
+                          style={{ borderRadius: "50%" }}
+                        />
+                      </div>
+                      <div style={{ marginTop: "2px" }}>{comm.ownerName}</div>
+                    </div>
+                    <div style={{ marginTop: "2px" }}>{comm.comment}</div>
+                    <div></div>
+                  </div>
+                ))
+              ) : (
+                <div
+                  style={{
+                    color: "black",
+                    padding: "10px",
+                      marginTop: "10px",
+                      display: 'flex',
+                      justifyContent: "space-around",
+                      width: '420px'
+                  }}
+                >
+                  No Comments yet, be the first to make a comment <span style={{marginTop: '4px'}}><FaRegSmile /></span>
                 </div>
-                <div>
-                  I am unhappy with the way this is treated. Technology requires
-                  something better please.
-                </div>
-                <div></div>
-              </div>
-              <div
-                style={{
-                  padding: "10px",
-                  borderRadius: "10px",
-                  border: "1px solid white",
-                  marginTop: "10px",
-                }}
-              >
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <img src={user} alt="user photo" />
-                  <div style={{ marginTop: "8px" }}>John Bosco</div>
-                </div>
-                <div>
-                  I am unhappy with the way this is treated. Technology requires
-                  something better please.
-                </div>
-                <div></div>
-              </div>
-              <div
-                style={{
-                  padding: "10px",
-                  borderRadius: "10px",
-                  border: "1px solid white",
-                  marginTop: "10px",
-                }}
-              >
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <img src={user} alt="user photo" />
-                  <div style={{ marginTop: "8px" }}>John Bosco</div>
-                </div>
-                <div>
-                  I am unhappy with the way this is treated. Technology requires
-                  something better please.
-                </div>
-                <div></div>
-              </div>
-              <div
-                style={{
-                  padding: "10px",
-                  borderRadius: "10px",
-                  border: "1px solid white",
-                  marginTop: "10px",
-                }}
-              >
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <img src={user} alt="user photo" />
-                  <div style={{ marginTop: "8px" }}>John Bosco</div>
-                </div>
-                <div>
-                  I am unhappy with the way this is treated. Technology requires
-                  something better please.
-                </div>
-                <div></div>
-              </div>
+              )}
             </div>
           </div>
         ) : (
@@ -240,6 +299,7 @@ export const SinglePost = () => {
             marginLeft: "15rem",
             marginTop: "20px",
           }}
+          onSubmit={makeComments}
         >
           <textarea
             placeholder="Add Comment"
@@ -252,6 +312,8 @@ export const SinglePost = () => {
               fontWeight: "400",
             }}
             required
+            onChange={(e: any) => handleCommentsChange(e)}
+            value={makeComment}
           />
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button type="submit" style={{ width: "20%", marginTop: "20px" }}>
@@ -287,7 +349,7 @@ export const SinglePost = () => {
           marginRight: "10px",
         }}
       >
-        <div>
+        <div onClick={likeAPost}>
           <AiOutlineLike
             style={{ width: "30px", height: "30px", color: "white" }}
           />
@@ -295,7 +357,7 @@ export const SinglePost = () => {
             {getPosts.likes}
           </div>
         </div>
-        <div>
+        <div onClick={dislikeAPost}>
           <AiOutlineDislike
             style={{ width: "30px", height: "30px", color: "white" }}
           />
