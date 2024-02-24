@@ -1,11 +1,13 @@
-import { Button, Card, InputGroup, Form } from "react-bootstrap";
+import {Card} from "react-bootstrap";
 import okay from "../../../assets/body/okay2.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { showErrorToast, showSuccessToast } from "../../../utilities/toastifySetup";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { verifyUser } from "../../../axiosFolder/axiosFunctions/userAxios/userAxios";
 
 function VerificationCard() {
+
+    const [seconds, setSeconds] = useState(5);
 
     const navigate = useNavigate()
 
@@ -36,7 +38,12 @@ function VerificationCard() {
     }
 
     useEffect(()=>{
-        verifyUserAccount()
+        verifyUserAccount();
+        
+        const interval = setInterval(() => {
+          setSeconds((prevSeconds) => (prevSeconds > 0 ? prevSeconds - 1 : 0));
+        }, 1000);
+        return () => clearInterval(interval);
     }, [])
 
   return (
@@ -76,7 +83,7 @@ function VerificationCard() {
               Account Verified Successfully
             </Card.Title>
             <Card.Text style={{ color: "#97989F" }}>
-              Redirecting to Login...
+              Redirecting to Login in <span style={{color: 'green'}}>{seconds}s</span>...
               If it does not redirect, click <a href='/login' style={{color: "red"}}>here</a> to proceed to login
             </Card.Text>
           </div>

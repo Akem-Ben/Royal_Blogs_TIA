@@ -16,7 +16,12 @@ import {
   showErrorToast,
   showSuccessToast,
 } from "../../utilities/toastifySetup";
-import { disLikePost, getAllDislikes, getAllLikes, likePost } from "../../axiosFolder/axiosFunctions/likesAxios/likesAxios";
+import {
+  disLikePost,
+  getAllDislikes,
+  getAllLikes,
+  likePost,
+} from "../../axiosFolder/axiosFunctions/likesAxios/likesAxios";
 
 import { AiFillLike } from "react-icons/ai";
 import { AiFillDislike } from "react-icons/ai";
@@ -42,13 +47,13 @@ export const SinglePost = () => {
 
   const [comments, setComments] = useState<any>([]);
 
-  const [getPostLikes, setGetPostLikes] = useState<any>([])
+  const [getPostLikes, setGetPostLikes] = useState<any>([]);
 
-  const [getPostDislikes, setGetPostDislikes] = useState<any>([])
+  const [getPostDislikes, setGetPostDislikes] = useState<any>([]);
 
-  const [checkUserLike, setCheckUserLike] = useState(false)
+  const [checkUserLike, setCheckUserLike] = useState(false);
 
-  const [checkUserDislike, setCheckUserDislike] = useState(false)
+  const [checkUserDislike, setCheckUserDislike] = useState(false);
 
   const handleCommentsChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -57,52 +62,51 @@ export const SinglePost = () => {
     setMakeComment(event.target.value);
   };
 
-  const likeAPost = async(event:any)=>{
-    try{
+  const likeAPost = async (event: any) => {
+    try {
+      event.preventDefault();
 
-      event.preventDefault()
-
-      if(!mainUser){
-        return showErrorToast('You must be logged in to be able to like/dislike a post')
+      if (!mainUser) {
+        return showErrorToast(
+          "You must be logged in to be able to like/dislike a post"
+        );
       }
 
-      const data = await likePost(post_Id)
+      const data = await likePost(post_Id);
 
+      getDisLikes();
 
-      getDisLikes()
+      getLikes();
 
-      getLikes()
-
-      return fetchPostDetails()
-
-    }catch (error) {
+      return fetchPostDetails();
+    } catch (error) {
       console.log(error);
     } finally {
     }
-  }
+  };
 
-  const dislikeAPost = async(event:any)=>{
-    try{
+  const dislikeAPost = async (event: any) => {
+    try {
+      event.preventDefault();
 
-      event.preventDefault()
-
-      if(!mainUser){
-        return showErrorToast('You must be logged in to be able to like/dislike a post')
+      if (!mainUser) {
+        return showErrorToast(
+          "You must be logged in to be able to like/dislike a post"
+        );
       }
 
-      const data = await disLikePost(post_Id)
+      const data = await disLikePost(post_Id);
 
-      getDisLikes()
+      getDisLikes();
 
-      getLikes()
+      getLikes();
 
-      return fetchPostDetails()
-
-    }catch (error) {
+      return fetchPostDetails();
+    } catch (error) {
       console.log(error);
     } finally {
     }
-  }
+  };
 
   const makeComments = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
@@ -162,75 +166,79 @@ export const SinglePost = () => {
     setViewComments(!viewComments);
   };
 
-  const getLikes = async() => {
+  const getLikes = async () => {
     try {
       const data = await getAllLikes(post_Id);
 
-      const likesArrayStorage = data.data.likesWithOwners
+      const likesArrayStorage = data.data.likesWithOwners;
 
-      const dislikesStorageArray = data.data.likesWithOwners
+      const dislikesStorageArray = data.data.likesWithOwners;
 
-      if(likesArrayStorage.length === 0 && dislikesStorageArray.length === 0){
-        setCheckUserLike(false)
-        setGetPostLikes(data.data.likesWithOwners)
-        return setCheckUserDislike(false)
+      if (likesArrayStorage.length === 0 && dislikesStorageArray.length === 0) {
+        setCheckUserLike(false);
+        setGetPostLikes(data.data.likesWithOwners);
+        return setCheckUserDislike(false);
       }
 
-      likesArrayStorage.map((likes:any)=>{
-        if(likes.ownerName === mainUser.fullName){
-          return setCheckUserLike(true)
+      likesArrayStorage.map((likes: any) => {
+        if(mainUser){
+        if (likes.ownerName === mainUser.fullName) {
+          return setCheckUserLike(true);
         }
-      })
+      }
+      });
 
-      dislikesStorageArray.map((likes:any)=>{
-        if(likes.ownerName === mainUser.fullName){
-          return setCheckUserDislike(false)
+      dislikesStorageArray.map((likes: any) => {
+        if(mainUser){
+        if (likes.ownerName === mainUser.fullName) {
+          return setCheckUserDislike(false);
         }
-      })
+      }
+      });
 
-      return setGetPostLikes(data.data.likesWithOwners)
-
+      return setGetPostLikes(data.data.likesWithOwners);
     } catch (error) {
       console.log(error);
     } finally {
     }
-  }
+  };
 
-  const getDisLikes = async() => {
+  const getDisLikes = async () => {
     try {
       const data = await getAllDislikes(post_Id);
 
-      const dislikesArrayStorage = data.data.dislikesWithOwners
+      const dislikesArrayStorage = data.data.dislikesWithOwners;
 
-      const likesArrayStorage = data.data.dislikesWithOwners
+      const likesArrayStorage = data.data.dislikesWithOwners;
 
-
-      if(likesArrayStorage.length === 0 && dislikesArrayStorage.length === 0){
-        setCheckUserLike(false)
-        setGetPostDislikes(data.data.likesWithOwners)
-        return setCheckUserDislike(false)
+      if (likesArrayStorage.length === 0 && dislikesArrayStorage.length === 0) {
+        setCheckUserLike(false);
+        setGetPostDislikes(data.data.likesWithOwners);
+        return setCheckUserDislike(false);
       }
 
-
-      dislikesArrayStorage.map((dislikes:any)=>{
-        if(dislikes.ownerName === mainUser.fullName){
-          return setCheckUserLike(false)
+      dislikesArrayStorage.map((dislikes: any) => {
+        if(mainUser){
+        if (dislikes.ownerName === mainUser.fullName) {
+          return setCheckUserLike(false);
         }
-      })
+      }
+      });
 
-      likesArrayStorage.map((likes:any)=>{
-        if(likes.ownerName === mainUser.fullName){
-          return setCheckUserDislike(true)
+      likesArrayStorage.map((likes: any) => {
+        if(mainUser){
+        if (likes.ownerName === mainUser.fullName) {
+          return setCheckUserDislike(true);
         }
-      })
+      }
+      });
 
-      return setGetPostDislikes(data.data.dislikesWithOwners)
-
+      return setGetPostDislikes(data.data.dislikesWithOwners);
     } catch (error) {
       console.log(error);
     } finally {
     }
-  }
+  };
 
   useEffect(() => {
     fetchPostDetails();
@@ -374,13 +382,16 @@ export const SinglePost = () => {
                   style={{
                     color: "black",
                     padding: "10px",
-                      marginTop: "10px",
-                      display: 'flex',
-                      justifyContent: "space-around",
-                      width: '420px'
+                    marginTop: "10px",
+                    display: "flex",
+                    justifyContent: "space-around",
+                    width: "420px",
                   }}
                 >
-                  No Comments yet, be the first to make a comment <span style={{marginTop: '4px'}}><FaRegSmile /></span>
+                  No Comments yet, be the first to make a comment{" "}
+                  <span style={{ marginTop: "4px" }}>
+                    <FaRegSmile />
+                  </span>
                 </div>
               )}
             </div>
@@ -450,31 +461,30 @@ export const SinglePost = () => {
         }}
       >
         <div onClick={likeAPost}>
-        {/* <AiFillLike AiOutlineLike <AiFillDislike AiOutlineDislike /> /> */}
+          {/* <AiFillLike AiOutlineLike <AiFillDislike AiOutlineDislike /> /> */}
 
-        {checkUserLike ? (
-           <AiFillLike
-           style={{ width: "30px", height: "30px", color: "green"}}
-         />
-        ):(
-          <AiOutlineLike
-          style={{ width: "30px", height: "30px", color: "white"}}
-        />
-        )}
+          {checkUserLike ? (
+            <AiFillLike
+              style={{ width: "30px", height: "30px", color: "green" }}
+            />
+          ) : (
+            <AiOutlineLike
+              style={{ width: "30px", height: "30px", color: "white" }}
+            />
+          )}
           <div style={{ color: "white", marginLeft: "10px" }}>
             {!getPostLikes ? getPosts.likes : getPostLikes.length}
           </div>
         </div>
         <div onClick={dislikeAPost}>
-
           {checkUserDislike ? (
             <AiFillDislike
-            style={{ width: "30px", height: "30px", color: "green" }}
-          />
-          ):(
+              style={{ width: "30px", height: "30px", color: "green" }}
+            />
+          ) : (
             <AiOutlineDislike
-            style={{ width: "30px", height: "30px", color: "white" }}
-          />
+              style={{ width: "30px", height: "30px", color: "white" }}
+            />
           )}
           <div style={{ color: "white", marginLeft: "10px" }}>
             {!getPostDislikes ? getPosts.dislikes : getPostDislikes.length}
