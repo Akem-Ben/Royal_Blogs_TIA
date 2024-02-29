@@ -54,7 +54,7 @@ const Navigation = () => {
           {mainUser ? (
             <div style={{ display: 'flex', width: '10em', justifyContent: 'space-between' }}>
               <Button onClick={logout} variant="success">Logout</Button>{' '}
-              <Nav.Link href="#profile"><img src={mainUser.profileImage.length ? mainUser.profileImage : profile} width='30px' alt="profile image" style={{ borderRadius: '50%', marginTop: '3px' }} /></Nav.Link>
+              <Nav.Link href="/profile"><img src={mainUser.profileImage.length ? mainUser.profileImage : profile} width='30px' alt="profile image" style={{ borderRadius: '50%', marginTop: '3px' }} /></Nav.Link>
             </div>
           ) : (
             <div>
