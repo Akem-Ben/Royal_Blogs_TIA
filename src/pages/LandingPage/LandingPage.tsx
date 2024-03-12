@@ -7,7 +7,6 @@ import { FaRegPenToSquare } from "react-icons/fa6";
 import "./landing.css";
 import { useEffect, useState } from "react";
 import Postmodal from "../../Components/Modals/Postmodal";
-import { Col, Container, Row } from "react-bootstrap";
 import { allPosts, createPost } from "../../axiosFolder/axiosFunctions/postAxios/postAxios";
 import { showErrorToast, showSuccessToast } from "../../utilities/toastifySetup";
 

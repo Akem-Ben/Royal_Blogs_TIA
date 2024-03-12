@@ -1,4 +1,3 @@
-import React from 'react'
 import Navigation from '../../Components/Navbar/Navbar'
 
 export const Profile = () => {

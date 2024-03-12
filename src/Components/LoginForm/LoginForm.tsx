@@ -11,7 +11,6 @@ import {
   showErrorToast,
   showSuccessToast,
 } from "../../utilities/toastifySetup";
-import { FaLessThanEqual } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import "./loginform.css";
 

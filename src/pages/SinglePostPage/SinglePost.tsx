@@ -72,7 +72,7 @@ export const SinglePost = () => {
         );
       }
 
-      const data = await likePost(post_Id);
+      await likePost(post_Id);
 
       getDisLikes();
 
@@ -95,7 +95,7 @@ export const SinglePost = () => {
         );
       }
 
-      const data = await disLikePost(post_Id);
+      await disLikePost(post_Id);
 
       getDisLikes();
 

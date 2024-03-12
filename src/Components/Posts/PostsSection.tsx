@@ -14,7 +14,7 @@ const PostsSection = ({ Prop }: any) => {
             <h3 style={{color: 'white', fontFamily: 'sans-serif', fontWeight: 'bolder'}}>Latest Posts</h3>
             <div style={{display: 'grid', justifyContent: 'space-between', marginTop: '20px', gridTemplateColumns: '1fr 1fr 1fr', gridRowGap: '30px'}}>
                 {/* <PostsCard Data={Prop} /> */}
-                {Prop.length ? (
+                {Prop ? (
         Prop?.map((item: any, index: any) => (
           <Card
             key={index}

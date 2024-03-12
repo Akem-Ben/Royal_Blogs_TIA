@@ -1,7 +1,7 @@
 import {Card} from "react-bootstrap";
 import okay from "../../../assets/body/okay2.png";
 import { useNavigate, useParams } from "react-router-dom";
-import { showErrorToast, showSuccessToast } from "../../../utilities/toastifySetup";
+import { showErrorToast } from "../../../utilities/toastifySetup";
 import { useEffect, useState } from "react";
 import { verifyUser } from "../../../axiosFolder/axiosFunctions/userAxios/userAxios";
 
