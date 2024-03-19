@@ -3,13 +3,26 @@ import logo from '../../assets/header/navbar/Union.png';
 import { CiSearch } from "react-icons/ci";
 import './navbar.css'
 import { useNavigate } from 'react-router-dom';
-import profile from '../../assets/header/navbar/profile.jpeg'
+import profile from '../../assets/header/navbar/profile.jpeg';
+import { BsToggleOff } from "react-icons/bs";
+import { BsToggleOn } from "react-icons/bs";
+import { useState } from 'react';
 
 const Navigation = () => {
 
   const user: any = localStorage.getItem("user")
   const mainUser = JSON.parse(user)
 
+  const [light, setLight] = useState(false)
+
+
+  const handleLight = () => {
+    return setLight(true)
+  }
+
+  const handleDark = () => {
+    return setLight(false)
+  }
 
   const logout = () => {
     localStorage.clear()
@@ -76,6 +89,14 @@ const Navigation = () => {
                 <CiSearch className='search' />
               </InputGroup.Text>
             </InputGroup>
+          </div>
+          
+          <div>
+            {light ? (
+              <BsToggleOff style={{color: 'white', height: '40px', width: '50px'}} onClick={handleDark}/>
+            ): (
+              <BsToggleOn style={{color: 'white', height: '40px', width: '50px'}} onClick={handleLight}/>
+            )}
           </div>
         </Container>
       </Navbar>

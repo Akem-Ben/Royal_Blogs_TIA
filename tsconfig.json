@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/pages/LoginPage/<LoginForm /LoginPage.tsx"],
+  "include": ["src", "src/pages/LoginPage/<LoginForm /LoginPage.tsx", "vitest.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
