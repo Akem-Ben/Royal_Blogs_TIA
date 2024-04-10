@@ -2,27 +2,31 @@ import { Button, Card } from "react-bootstrap";
 import { convertISOtoDate } from "../../helper functions/helpers";
 import { useNavigate } from "react-router-dom";
 import './PostSection.css';
+import { useBlog } from "../Contexts/PostContexts";
+import { useTheme } from "../Contexts/ThemeContext";
 
 
-const PostsSection = ({ Prop }: any) => {
+const PostsSection = () => {
 
     const navigate = useNavigate()
+    const { blogPosts } = useBlog()
+
+    const { theme } = useTheme()
 
     return (
         <div style={{marginTop: '4rem', marginLeft: '8rem', marginRight: '8rem'}}>
         <div>
-            <h3 style={{color: 'white', fontFamily: 'sans-serif', fontWeight: 'bolder'}}>Latest Posts</h3>
+            <h3 style={{color: `${theme === 'light' ? '#181A2A' : 'white'}`, fontFamily: 'sans-serif', fontWeight: 'bolder'}}>Latest Posts</h3>
             <div style={{display: 'grid', justifyContent: 'space-between', marginTop: '20px', gridTemplateColumns: '1fr 1fr 1fr', gridRowGap: '30px'}}>
-                {/* <PostsCard Data={Prop} /> */}
-                {Prop ? (
-        Prop?.map((item: any, index: any) => (
+                {blogPosts ? (
+        blogPosts?.map((item: any, index: any) => (
           <Card
             key={index}
             style={{
               width: "360px",
               padding: "1rem",
-              border: "2px solid #242535",
-              backgroundColor: "#181A2A",
+              border: `${theme === 'dark' ? '2px solid #242535' : '0.5px solid gray'}`,
+              backgroundColor: `${theme === 'light' ? 'white' : '#181A2A'}`,
               fontFamily: "sans-serif",
             }}
             onClick={()=> navigate(`/singlepost/${item.dataValues.id}`)}
@@ -36,7 +40,8 @@ const PostsSection = ({ Prop }: any) => {
                 width: "100%",
                 height: "300px",
                 overflow: "hidden",
-                border: '1px solid #242535'
+                border: `${theme === 'dark' ? '1px solid #242535' : '#E8E8EA' }`,
+                borderRadius: '10px'
               }}
             >
               <img
@@ -54,7 +59,7 @@ const PostsSection = ({ Prop }: any) => {
             >
               <Card.Text
                 style={{
-                  backgroundColor: "#1E1B34",
+                  backgroundColor: `${theme === 'light' ? '#F6F8FF' : "#1E1B34"}`,
                   fontSize: "11px",
                   borderRadius: "5px",
                   padding: "5px",
@@ -66,7 +71,7 @@ const PostsSection = ({ Prop }: any) => {
               </Card.Text>
               <Card.Title
                 style={{
-                  color: "white",
+                  color: `${theme === 'light' ? '#181A2A' : 'white'}`,
                   fontFamily: "sans-serif",
                   fontSize: "18px",
                   fontWeight: 400,
@@ -81,17 +86,19 @@ const PostsSection = ({ Prop }: any) => {
               style={{
                 fontSize: "10px",
                 color: "gray",
-                width: "60%",
+                width: "100%",
                 marginTop: "1em",
                 display: "flex",
-                justifyContent: "space-between",
+                gap: '20px',
               }}
             >
-              <div style={{ width: "2em" }}>
-                <Card.Img src={item.ownerImage} width="1px" height="2px" />
+              <div style={{display: 'flex', width: '40%', justifyContent: 'space-between'}}>
+              <div style={{ width: "3em" }}>
+                <Card.Img src={item.ownerImage} style={{borderRadius: '50%', height: '30px'}} />
               </div>
-              <div>{item.ownerName}</div>
-              <div>{convertISOtoDate(item.dataValues.createdAt)}</div>
+              <div style={{marginTop: '7px'}}>{item.ownerName}</div>
+              </div>
+              <div style={{marginTop: '7px'}}>{convertISOtoDate(item.dataValues.createdAt)}</div>
             </div>
           </Card>
         ))
@@ -110,7 +117,7 @@ const PostsSection = ({ Prop }: any) => {
             </div>
                 <div style={{display: 'flex', width: '100%', justifyContent: 'space-around', marginTop: '2rem'}}>
                 
-                {Prop ? (Prop.length > 9 ? (
+                {blogPosts ? (blogPosts.length > 9 ? (
                 (<><Button variant="success">Previous Page</Button><Button variant="success">Next Page</Button></>)): (null)): null}
                 </div>
         </div>

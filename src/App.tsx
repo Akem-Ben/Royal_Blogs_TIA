@@ -7,7 +7,9 @@ import { SinglePost } from './pages/SinglePostPage/SinglePost'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { VerificationPage } from './pages/VerificationPage/VerificationPage'
-
+import { BlogPostProvider } from './Components/Contexts/PostContexts'
+import {UserProvider} from './Components/Contexts/userDetailsContext'
+import { ThemeContextProvider } from './Components/Contexts/ThemeContext'
 
 const routes = createBrowserRouter([
   {
@@ -43,7 +45,13 @@ function App() {
   return (
     <>
     <ToastContainer />
+    <BlogPostProvider>
+    <UserProvider>
+    <ThemeContextProvider>
     <RouterProvider router={routes} />
+    </ThemeContextProvider>
+    </UserProvider>
+    </BlogPostProvider>
     </>
   )
 }

@@ -25,6 +25,7 @@ import {
 
 import { AiFillLike } from "react-icons/ai";
 import { AiFillDislike } from "react-icons/ai";
+import { useTheme } from "../../Components/Contexts/ThemeContext";
 
 export const SinglePost = () => {
   const loggedInUser: any = localStorage.getItem("user");
@@ -54,6 +55,8 @@ export const SinglePost = () => {
   const [checkUserLike, setCheckUserLike] = useState(false);
 
   const [checkUserDislike, setCheckUserDislike] = useState(false);
+
+  const { theme } = useTheme()
 
   const handleCommentsChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -265,7 +268,7 @@ export const SinglePost = () => {
         </Card.Text>
         <h1
           style={{
-            color: "white",
+            color: `${theme === 'light' ? '#181A2A' : 'white'}`,
             marginTop: "10px",
             fontFamily: "sans-serif",
             fontSize: "50px",
@@ -300,10 +303,12 @@ export const SinglePost = () => {
         <div
           style={{
             marginTop: "50px",
+            padding: '30px',
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
+            backgroundColor: `${theme === 'light' ? '#F6F6F7' : '#242535'}`,
           }}
         >
           <div
@@ -312,25 +317,32 @@ export const SinglePost = () => {
               borderRadius: "10px",
               height: "700px",
               overflowY: "scroll",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: '40px'
             }}
           >
             <img
               src={getPosts.postImage}
-              width="100%"
+              width="80%"
               alt="blog picture"
               style={{ borderRadius: "10px" }}
             />
           </div>
           <div
             style={{
-              marginTop: "30px",
-              color: "#A6A6AC",
+              marginTop: "",
               fontFamily: "Inter",
               textAlign: "justify",
+              color: `${theme === 'light' ? '#3B3C4A' : 'white'}`
             }}
-          >
-            {getPosts.postText}
-          </div>
+            dangerouslySetInnerHTML={{
+              __html: getPosts.postText,
+            }}
+          />
+            {/* {getPosts.postText}
+          </div> */}
         </div>
       </div>
       <div
@@ -338,14 +350,14 @@ export const SinglePost = () => {
       >
         {viewComments ? (
           <div>
-            <div className="show_comments_link" onClick={seeComments}>
+            <div className="show_comments_link" onClick={seeComments} style={{ color: `${theme === 'light' ? '#181A2A' : 'white'}`}}>
               Hide Comments
             </div>
             <div
               style={{
                 overflowY: "scroll",
                 marginTop: "20px",
-                backgroundColor: "gray",
+                backgroundColor: `${theme === 'light' ? '#F6F6F7' : '#A6A6AC'}`,
                 height: "300px",
                 padding: "20px",
                 borderRadius: "10px",
@@ -397,7 +409,7 @@ export const SinglePost = () => {
             </div>
           </div>
         ) : (
-          <div className="show_comments_link" onClick={seeComments}>
+          <div className="show_comments_link" onClick={seeComments} style={{ color: `${theme === 'light' ? '#181A2A' : 'white'}`}}>
             Show Comments
           </div>
         )}
@@ -415,7 +427,7 @@ export const SinglePost = () => {
           <textarea
             placeholder="Add Comment"
             style={{
-              backgroundColor: "gray",
+              backgroundColor: `${theme === 'light' ? '#F6F6F7' : '#A6A6AC'}`,
               padding: "10px",
               width: "100%",
               height: "100px",
@@ -427,7 +439,7 @@ export const SinglePost = () => {
             value={makeComment}
           />
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button type="submit" style={{ width: "20%", marginTop: "20px" }}>
+            <Button type="submit" style={{ width: "20%", marginTop: "20px", color: `${theme === 'light' ? 'black' : 'white'}` }}>
               {loading ? "Loading..." : "Add Comment"}
             </Button>
           </div>
@@ -469,10 +481,10 @@ export const SinglePost = () => {
             />
           ) : (
             <AiOutlineLike
-              style={{ width: "30px", height: "30px", color: "white" }}
+              style={{ width: "30px", height: "30px", color: `${theme === 'light' ? 'black' : 'white'}` }}
             />
           )}
-          <div style={{ color: "white", marginLeft: "10px" }}>
+          <div style={{ color: `${theme === 'light' ? 'black' : 'white'}`, marginLeft: "10px" }}>
             {!getPostLikes ? getPosts.likes : getPostLikes.length}
           </div>
         </div>
@@ -483,10 +495,10 @@ export const SinglePost = () => {
             />
           ) : (
             <AiOutlineDislike
-              style={{ width: "30px", height: "30px", color: "white" }}
+              style={{ width: "30px", height: "30px", color: `${theme === 'light' ? 'black' : 'white'}` }}
             />
           )}
-          <div style={{ color: "white", marginLeft: "10px" }}>
+          <div style={{ color: `${theme === 'light' ? 'black' : 'white'}`, marginLeft: "10px" }}>
             {!getPostDislikes ? getPosts.dislikes : getPostDislikes.length}
           </div>
         </div>

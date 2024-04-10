@@ -13,12 +13,15 @@ import {
 } from "../../utilities/toastifySetup";
 import { useNavigate } from "react-router-dom";
 import "./loginform.css";
+import { useTheme } from "../Contexts/ThemeContext";
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const [checkVerification, setCheckVerification] = useState(false);
 
   const navigate = useNavigate();
+
+  const { theme } = useTheme();
 
   const initialFormlikLoginValues = {
     loginKey: "",
@@ -34,7 +37,7 @@ const LoginForm = () => {
         .required("Enter password"),
     }),
 
-    onSubmit: async (values, { setSubmitting }) => {
+    onSubmit: async (values: any, { setSubmitting }: any) => {
       try {
         setLoading(true);
 
@@ -75,7 +78,7 @@ const LoginForm = () => {
       }
     },
   });
-
+  
   const userResendsVerification = async (event: any) => {
     try {
       event.preventDefault();
@@ -114,7 +117,7 @@ const LoginForm = () => {
         display: "flex",
         justifyContent: "center",
         alignContent: "center",
-        color: "white",
+        color: `${theme === "light" ? "#242535" : "white"}`,
         fontFamily: "Inter",
       }}
     >
@@ -122,7 +125,7 @@ const LoginForm = () => {
         style={{
           marginTop: "100px",
           width: "40%",
-          backgroundColor: "#242535",
+          backgroundColor: `${theme === "light" ? "#F6F6F8" : "#242535"}`,
           padding: "30px",
           borderRadius: "10px",
         }}
@@ -140,9 +143,11 @@ const LoginForm = () => {
             value={loginFormik.values.loginKey}
             onChange={loginFormik.handleChange}
             style={{
-              backgroundColor: "#181A2A",
-              color: "white",
-              border: "2px solid #262837",
+              backgroundColor: `${theme === "light" ? "#F6F6F8" : "#181A2A"}`,
+              color: `${theme === "light" ? "#242535" : "white"}`,
+              border: `${
+                theme === "light" ? "1px solid #262837" : "2px solid #262837"
+              }`,
             }}
           />
           {loginFormik.errors.loginKey ? (
@@ -177,9 +182,11 @@ const LoginForm = () => {
             value={loginFormik.values.password}
             onChange={loginFormik.handleChange}
             style={{
-              backgroundColor: "#181A2A",
-              color: "white",
-              border: "2px solid #262837",
+              backgroundColor: `${theme === "light" ? "#F6F6F8" : "#181A2A"}`,
+              color: `${theme === "light" ? "#242535" : "white"}`,
+              border: `${
+                theme === "light" ? "1px solid #262837" : "2px solid #262837"
+              }`,
             }}
           />
           {loginFormik.errors.password ? (
@@ -190,7 +197,14 @@ const LoginForm = () => {
             </div>
           ) : null}
         </div>
-        <Button type="submit" style={{ width: "100%", marginTop: "20px" }}>
+        <Button
+          type="submit"
+          style={{
+            width: "100%",
+            marginTop: "20px",
+            color: `${theme === "light" ? "black" : "white"}`,
+          }}
+        >
           {loading ? "Loading..." : "Login"}
         </Button>
 

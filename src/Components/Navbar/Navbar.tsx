@@ -1,43 +1,56 @@
-import { Container, Button, InputGroup, Form, Nav, Navbar } from 'react-bootstrap';
-import logo from '../../assets/header/navbar/Union.png';
+import {
+  Container,
+  Button,
+  InputGroup,
+  Form,
+  Nav,
+  Navbar,
+} from "react-bootstrap";
+import logo from "../../assets/header/navbar/Union.png";
 import { CiSearch } from "react-icons/ci";
-import './navbar.css'
-import { useNavigate } from 'react-router-dom';
-import profile from '../../assets/header/navbar/profile.jpeg';
+import "./navbar.css";
+import profile from "../../assets/header/navbar/profile.jpeg";
 import { BsToggleOff } from "react-icons/bs";
 import { BsToggleOn } from "react-icons/bs";
-import { useState } from 'react';
+import { useTheme } from "../Contexts/ThemeContext";
 
 const Navigation = () => {
+  const user: any = localStorage.getItem("user");
+  const mainUser = JSON.parse(user);
 
-  const user: any = localStorage.getItem("user")
-  const mainUser = JSON.parse(user)
+  const { theme, toggleThemes } = useTheme();
 
-  const [light, setLight] = useState(false)
-
-
-  const handleLight = () => {
-    return setLight(true)
-  }
-
-  const handleDark = () => {
-    return setLight(false)
-  }
+  const handleTheme = () => {
+    toggleThemes();
+  };
 
   const logout = () => {
-    localStorage.clear()
-    return window.location.href = "/"
-  }
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    return (window.location.href = "/");
+  };
 
-
-  const navigate = useNavigate()
   return (
-    <div style={{ top: '0', position: 'fixed', zIndex: 100, width: '100%', backgroundColor: '#181A2A' }}>
-      <Navbar style={{ borderBottom: '1px solid #181A2A', boxShadow: '0 4px 8px rgba(0,0,0,0.4)' }} bg="#181A2A" data-bs-theme="dark">
-        <Container style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-        }}>
+    <div
+      style={{
+        top: "0",
+        position: "fixed",
+        zIndex: 100,
+        width: "100%",
+        backgroundColor: `${theme === "light" ? "white" : "#181A2A"}`,
+      }}
+    >
+      <Navbar
+        style={{ boxShadow: "0 4px 8px rgba(0,0,0,0.4)" }}
+        bg={`${theme === "light" ? "white" : "#181A2A"}`}
+        data-bs-theme={`${theme === "light" ? "light" : "dark"}`}
+      >
+        <Container
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <div style={{}}>
             <Navbar.Brand href="/">
               <img
@@ -45,19 +58,30 @@ const Navigation = () => {
                 src={logo}
                 width="30"
                 height="30"
+                style={{ backgroundColor: "black", borderRadius: "50%" }}
                 className="d-inline-block align-top"
-              />{' '}
-
-              <span style={{
-                fontFamily: 'Inter'
-              }}>BeatTech</span>
-              <span style={{
-                fontWeight: 800,
-              }}>Blog</span>
+              />{" "}
+              <span
+                style={{
+                  fontFamily: "Inter",
+                }}
+              >
+                BeatTech
+              </span>
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                Blog
+              </span>
             </Navbar.Brand>
           </div>
-          <div style={{ width: '40%' }}>
-            <Nav style={{ display: 'flex', justifyContent: 'space-around' }} className="me-auto">
+          <div style={{ width: "40%" }}>
+            <Nav
+              style={{ display: "flex", justifyContent: "space-around" }}
+              className="me-auto"
+            >
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="#features">Latest News</Nav.Link>
               <Nav.Link href="#pricing">Pages</Nav.Link>
@@ -65,43 +89,80 @@ const Navigation = () => {
             </Nav>
           </div>
           {mainUser ? (
-            <div style={{ display: 'flex', width: '10em', justifyContent: 'space-between' }}>
-              <Button onClick={logout} variant="success">Logout</Button>{' '}
-              <Nav.Link href="/profile"><img src={mainUser.profileImage.length ? mainUser.profileImage : profile} width='30px' alt="profile image" style={{ borderRadius: '50%', marginTop: '3px' }} /></Nav.Link>
+            <div
+              style={{
+                display: "flex",
+                width: "10em",
+                justifyContent: "space-between",
+              }}
+            >
+              <Button
+                onClick={logout}
+                variant="success"
+                style={{ color: `${theme === "light" ? "#181A2A" : "white"}` }}
+              >
+                Logout
+              </Button>{" "}
+              <Nav.Link href="/profile">
+                <img
+                  src={
+                    mainUser.profileImage.length
+                      ? mainUser.profileImage
+                      : profile
+                  }
+                  width="30px"
+                  alt="profile image"
+                  style={{ borderRadius: "50%", marginTop: "3px" }}
+                />
+              </Nav.Link>
             </div>
           ) : (
             <div>
-              <Button onClick={() => navigate('/login')} variant="success">Signin</Button>{' '}
+              <Button
+                onClick={() => (window.location.href = "/login")}
+                variant="success"
+                style={{ color: `${theme === "light" ? "#181A2A" : "white"}` }}
+              >
+                Signin
+              </Button>{" "}
             </div>
           )}
           <div>
-            <InputGroup style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignContent: 'center',
-            }}>
+            <InputGroup
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+              }}
+            >
               <Form.Control
                 placeholder="Search"
                 aria-label="Search"
                 aria-describedby="basic-addon1"
               />
               <InputGroup.Text id="basic-addon1">
-                <CiSearch className='search' />
+                <CiSearch className="search" />
               </InputGroup.Text>
             </InputGroup>
           </div>
-          
+
           <div>
-            {light ? (
-              <BsToggleOff style={{color: 'white', height: '40px', width: '50px'}} onClick={handleDark}/>
-            ): (
-              <BsToggleOn style={{color: 'white', height: '40px', width: '50px'}} onClick={handleLight}/>
+            {theme === "light" ? (
+              <BsToggleOff
+                style={{ color: "black", height: "40px", width: "50px" }}
+                onClick={() => handleTheme()}
+              />
+            ) : (
+              <BsToggleOn
+                style={{ color: "white", height: "40px", width: "50px" }}
+                onClick={() => handleTheme()}
+              />
             )}
           </div>
         </Container>
       </Navbar>
     </div>
   );
-}
+};
 
 export default Navigation;

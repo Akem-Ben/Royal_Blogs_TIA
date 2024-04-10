@@ -4,7 +4,7 @@ export const registerUser = async (body: any) => {
     try {
       const response = await axios.post("/users/signup", body, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json"//"multipart/form-data",
         },
       });
       return response;
