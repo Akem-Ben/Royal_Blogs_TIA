@@ -30,6 +30,7 @@ const RegisterForm = () => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     const { files } = event.currentTarget;
+    console.log(files)
     const file = files && files[0];
     if (file) {
       formik.setFieldValue("image", file);
@@ -56,7 +57,7 @@ const RegisterForm = () => {
     onSubmit: async (values, { setSubmitting }) => {
       try {
         setLoading(true);
-        const newForm = new FormData();
+        let newForm = new FormData();
 
         newForm.append("profileImage", values.image);
         newForm.append("fullName", values.fullName);
@@ -68,24 +69,25 @@ const RegisterForm = () => {
         const data = await registerUser(newForm);
 
         if (data.status !== 200) {
+
           setLoading(false);
+          // formik.setFieldValue("image", "");
+          // formik.resetForm()
+          // window.location.href = "/signup"
           return showErrorToast(data.data.message);
         }
 
         showSuccessToast(data.data.message);
 
-        values.image = "";
-        values.fullName = "";
-        values.userName = "";
-        values.password = "";
-        values.confirmPassword = "";
-        values.email = "";
+        formik.resetForm()
 
         setLoading(false);
 
         return navigate("/login");
       } catch (error) {
         console.log(error);
+        formik.setFieldValue("image", "");
+          formik.resetForm()
       } finally {
         setSubmitting(false);
       }

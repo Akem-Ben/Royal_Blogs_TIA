@@ -194,11 +194,12 @@ const Postmodal = (Props: Props) => {
                 </Form.Group>
               </div>
             </div>
+
             <Modal.Body>
               <Editor
                 apiKey="7cs4vxtd2eslppb8dp3p2tu8dtdw6en11luoyzid5e1cvbf5"
-                onInit={(evt: any, editor: any) => (editorRef.current = editor)}
-                initialValue="<p>Write your text here</p>"
+                onInit={(editor: any) => (editorRef.current = editor)}
+                initialValue="<p style={{color: red}}>Write your text here</p>"
                 init={{
                   height: 500,
                   menubar: true,
@@ -269,6 +270,7 @@ const Postmodal = (Props: Props) => {
                 {loading ? "Loading..." : "Save Changes"}
               </Button>
             </Modal.Footer>
+
           </Modal.Dialog>
         </div>
       </div>

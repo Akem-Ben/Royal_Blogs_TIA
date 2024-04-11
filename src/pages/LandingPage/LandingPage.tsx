@@ -45,7 +45,7 @@ const LandingPage = () => {
           }}
         >
           <div style={{ color: "white" }}>
-            Signin to be able to make a blog post
+            Sign in to be able to make a blog post
           </div>
         </div>
       ) : null}
@@ -74,7 +74,8 @@ const LandingPage = () => {
       <AdvertBanner />
       <PostsSection />
       <AdvertBanner />
-      <Footer />({showModal && <Postmodal onClose={handleModalClose} />})
+      <Footer />
+      ({showModal && <Postmodal onClose={handleModalClose} />})
     </div>
   );
 };
