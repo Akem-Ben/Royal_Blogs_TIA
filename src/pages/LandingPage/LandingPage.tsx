@@ -34,7 +34,10 @@ const LandingPage = () => {
 
   return (
     <div>
+
       <Navigation />
+
+
       {!mainUser ? (
         <div
           style={{
@@ -49,7 +52,10 @@ const LandingPage = () => {
           </div>
         </div>
       ) : null}
+
       <HeroSection />
+
+
       {mainUser ? (
         <div
           onClick={handleModal}
@@ -71,11 +77,18 @@ const LandingPage = () => {
           />
         </div>
       ) : null}
+
+
       <AdvertBanner />
+
       <PostsSection />
+
       <AdvertBanner />
+
       <Footer />
+
       ({showModal && <Postmodal onClose={handleModalClose} />})
+      
     </div>
   );
 };

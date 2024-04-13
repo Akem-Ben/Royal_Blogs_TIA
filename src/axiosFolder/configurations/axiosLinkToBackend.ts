@@ -17,7 +17,7 @@ const config = (): Config => {
                 apiHost:
                     environment === "development"
                         ? "http://localhost:3000/"
-                        : "http://localhost:3000/",
+                        : "http://localhost:3000/"
             },
         });
     }
@@ -25,3 +25,6 @@ const config = (): Config => {
 };
 
 export default config;
+
+// https://royal-blogs-tia.vercel.app/
+//"http://localhost:3000/"

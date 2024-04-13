@@ -55,8 +55,8 @@ const HeroCard = () => {
                 marginTop: "0.5rem",
               }}
             >
-              {newPost?.dataValues.title?.length > 77
-                ? `${newPost.dataValues.title.substring(0, 77)}...`
+              {newPost?.dataValues.title?.length > 60
+                ? `${newPost.dataValues.title.substring(0, 60)}...`
                 : newPost.dataValues.title}
             </Card.Title>
             <div
