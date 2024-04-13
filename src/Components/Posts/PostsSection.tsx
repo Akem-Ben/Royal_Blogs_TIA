@@ -8,6 +8,7 @@ import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { FcPrevious, FcNext } from "react-icons/fc";
+import { FaRegComments } from "react-icons/fa";
 
 const PostsSection = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const PostsSection = () => {
   const handlePageChangeClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % blogPosts.length;
 
+    console.log('hi')
     // console.log(
     //   `User requested page number ${event.selected}, which is offset ${newOffset}`
     // );
@@ -141,7 +143,7 @@ const PostsSection = () => {
                       width: "100%",
                       marginTop: "1em",
                       display: "flex",
-                      gap: "20px",
+                      gap: "8px",
                     }}
                   >
                     <div
@@ -165,7 +167,7 @@ const PostsSection = () => {
                     <div
                       style={{
                         display: "flex",
-                        width: "55px",
+                        width: "100px",
                         justifyContent: "space-between",
                       }}
                     >
@@ -188,6 +190,16 @@ const PostsSection = () => {
                           }}
                         />
                         <div>{item.dataValues.dislikes}</div>
+                      </div>
+                      <div>
+                      <FaRegComments
+                       style={{
+                        width: "20px",
+                        height: "20px",
+                        color: `${theme === "light" ? "black" : "white"}`,
+                      }} 
+                      />
+                      <div>{item.comments.length}</div>
                       </div>
                     </div>
                   </div>

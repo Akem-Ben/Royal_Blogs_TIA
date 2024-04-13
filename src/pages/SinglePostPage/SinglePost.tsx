@@ -370,7 +370,7 @@ export const SinglePost = () => {
                     style={{
                       padding: "10px",
                       borderRadius: "10px",
-                      border: "1px solid white",
+                      border: `${ theme === 'light' ? '1px solid #181A2A' : '1px solid white'}`,
                       marginTop: "10px",
                     }}
                   >
@@ -434,6 +434,7 @@ export const SinglePost = () => {
               borderRadius: "10px",
               fontWeight: "400",
             }}
+            className="form-control"
             required
             onChange={(e: any) => handleCommentsChange(e)}
             value={makeComment}

@@ -24,6 +24,7 @@ export const BlogPostProvider = ({ children }: { children: React.ReactNode } ) =
 
     const getPosts = async () => {
         const data = await allPosts()
+        console.log(data)
        return setBlogPosts(data.data.postsWithOwners)
     }
 

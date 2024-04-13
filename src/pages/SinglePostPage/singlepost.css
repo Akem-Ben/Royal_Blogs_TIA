@@ -6,3 +6,7 @@
 .show_comments_link:hover{
     cursor: pointer;
 }
+
+.form-control::placeholder{
+    color: black;
+}

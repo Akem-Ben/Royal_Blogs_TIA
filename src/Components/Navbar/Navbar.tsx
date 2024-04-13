@@ -39,6 +39,7 @@ const Navigation = () => {
         width: "100%",
         backgroundColor: `${theme === "light" ? "white" : "#181A2A"}`,
       }}
+      className="navbar-container"
     >
       <Navbar
         style={{ boxShadow: "0 4px 8px rgba(0,0,0,0.4)" }}
@@ -77,7 +78,7 @@ const Navigation = () => {
               </span>
             </Navbar.Brand>
           </div>
-          <div style={{ width: "40%" }}>
+          <div className="menu-items" style={{ width: "40%" }}>
             <Nav
               style={{ display: "flex", justifyContent: "space-around" }}
               className="me-auto"
@@ -123,7 +124,7 @@ const Navigation = () => {
                 variant="success"
                 style={{ color: `${theme === "light" ? "#181A2A" : "white"}` }}
               >
-                Signin
+                Sign in
               </Button>{" "}
             </div>
           )}
@@ -139,6 +140,8 @@ const Navigation = () => {
                 placeholder="Search"
                 aria-label="Search"
                 aria-describedby="basic-addon1"
+                className="search-input"
+                aria-placeholder="hi"
               />
               <InputGroup.Text id="basic-addon1">
                 <CiSearch className="search" />
