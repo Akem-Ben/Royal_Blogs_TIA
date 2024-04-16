@@ -56,7 +56,7 @@ const PostsSection = () => {
             gridRowGap: "30px",
           }}
         >
-          {blogPosts ? (
+          {blogPosts?.length ? (
             blogPosts
               ?.slice(itemOffset, endOffset)
               ?.map((item: any, index: any) => (
