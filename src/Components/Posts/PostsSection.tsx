@@ -22,7 +22,9 @@ const PostsSection = () => {
 
   const endOffset = itemOffset + itemsPerPage;
 
-  const pageCount = Math.ceil(blogPosts.length / itemsPerPage);
+  let pageCount: any; 
+
+  blogPosts?.length ? pageCount = Math.ceil(blogPosts.length / itemsPerPage) : null;
 
   const handlePageChangeClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % blogPosts.length;
