@@ -5,7 +5,7 @@ import { Button, Card } from "react-bootstrap";
 import { convertISOtoDate } from "../../helper functions/helpers";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import "./singlepost.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { singlePost } from "../../axiosFolder/axiosFunctions/postAxios/postAxios";
 import { FaRegSmile } from "react-icons/fa";
 import {
@@ -26,6 +26,8 @@ import {
 import { AiFillLike } from "react-icons/ai";
 import { AiFillDislike } from "react-icons/ai";
 import { useTheme } from "../../Components/Contexts/ThemeContext";
+import { MdDeleteOutline } from "react-icons/md";
+import { useBlog } from "../../Components/Contexts/PostContexts";
 
 export const SinglePost = () => {
   const loggedInUser: any = localStorage.getItem("user");
@@ -44,6 +46,10 @@ export const SinglePost = () => {
 
   const post_Id = getIdParams.postId;
 
+  const { deleteUserPost } = useBlog();
+
+  const navigate = useNavigate();
+
   const [makeComment, setMakeComment] = useState<any>("");
 
   const [comments, setComments] = useState<any>([]);
@@ -56,7 +62,9 @@ export const SinglePost = () => {
 
   const [checkUserDislike, setCheckUserDislike] = useState(false);
 
-  const { theme } = useTheme()
+  const { theme } = useTheme();
+
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const handleCommentsChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -184,19 +192,19 @@ export const SinglePost = () => {
       }
 
       likesArrayStorage.map((likes: any) => {
-        if(mainUser){
-        if (likes.ownerName === mainUser.fullName) {
-          return setCheckUserLike(true);
+        if (mainUser) {
+          if (likes.ownerName === mainUser.fullName) {
+            return setCheckUserLike(true);
+          }
         }
-      }
       });
 
       dislikesStorageArray.map((likes: any) => {
-        if(mainUser){
-        if (likes.ownerName === mainUser.fullName) {
-          return setCheckUserDislike(false);
+        if (mainUser) {
+          if (likes.ownerName === mainUser.fullName) {
+            return setCheckUserDislike(false);
+          }
         }
-      }
       });
 
       return setGetPostLikes(data.data.likesWithOwners);
@@ -221,25 +229,50 @@ export const SinglePost = () => {
       }
 
       dislikesArrayStorage.map((dislikes: any) => {
-        if(mainUser){
-        if (dislikes.ownerName === mainUser.fullName) {
-          return setCheckUserLike(false);
+        if (mainUser) {
+          if (dislikes.ownerName === mainUser.fullName) {
+            return setCheckUserLike(false);
+          }
         }
-      }
       });
 
       likesArrayStorage.map((likes: any) => {
-        if(mainUser){
-        if (likes.ownerName === mainUser.fullName) {
-          return setCheckUserDislike(true);
+        if (mainUser) {
+          if (likes.ownerName === mainUser.fullName) {
+            return setCheckUserDislike(true);
+          }
         }
-      }
       });
 
       return setGetPostDislikes(data.data.dislikesWithOwners);
     } catch (error) {
       console.log(error);
     } finally {
+    }
+  };
+
+  const handlePostDelete = async (event: any) => {
+    try {
+      event.preventDefault();
+
+      setDeleteLoading(true);
+
+      const data = await deleteUserPost(post_Id);
+
+      if (data.status !== 200) {
+        setDeleteLoading(false);
+        return showErrorToast(data.data.message);
+      }
+      showSuccessToast(data.data.message);
+
+      setDeleteLoading(false);
+
+      return navigate("/");
+    } catch (error) {
+      console.error("Error:", error);
+      setDeleteLoading(false);
+
+      showErrorToast("An unexpected error occurred.");
     }
   };
 
@@ -266,16 +299,36 @@ export const SinglePost = () => {
         >
           Technology
         </Card.Text>
-        <h1
-          style={{
-            color: `${theme === 'light' ? '#181A2A' : 'white'}`,
-            marginTop: "10px",
-            fontFamily: "sans-serif",
-            fontSize: "50px",
-          }}
-        >
-          {getPosts.title}
-        </h1>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h1
+            style={{
+              color: `${theme === "light" ? "#181A2A" : "white"}`,
+              marginTop: "10px",
+              fontFamily: "sans-serif",
+              fontSize: "50px",
+            }}
+          >
+            {getPosts.title}
+          </h1>
+          <div
+            style={{
+              display: "felx",
+              justifyContent: "center",
+              alignContent: "center",
+              color: `${theme === "light" ? "#181A2A" : "white"}`,
+            }}
+          >
+            {deleteLoading ? (
+              <p style={{ color: "red" }}>Deleting Post...</p>
+            ) : (
+              <MdDeleteOutline
+                style={{ width: "35px", height: "35px" }}
+                className="post-delete"
+                onClick={handlePostDelete}
+              />
+            )}
+          </div>
+        </div>
         <div
           style={{
             fontSize: "10px",
@@ -303,12 +356,12 @@ export const SinglePost = () => {
         <div
           style={{
             marginTop: "50px",
-            padding: '30px',
+            padding: "30px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
-            backgroundColor: `${theme === 'light' ? '#F6F6F7' : '#242535'}`,
+            backgroundColor: `${theme === "light" ? "#F6F6F7" : "#242535"}`,
           }}
         >
           <div
@@ -317,10 +370,10 @@ export const SinglePost = () => {
               borderRadius: "10px",
               height: "700px",
               overflowY: "scroll",
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginBottom: '40px'
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: "40px",
             }}
           >
             <img
@@ -335,13 +388,13 @@ export const SinglePost = () => {
               marginTop: "",
               fontFamily: "Inter",
               textAlign: "justify",
-              color: `${theme === 'light' ? '#3B3C4A' : 'white'}`
+              color: `${theme === "light" ? "#3B3C4A" : "white"}`,
             }}
             dangerouslySetInnerHTML={{
               __html: getPosts.postText,
             }}
           />
-            {/* {getPosts.postText}
+          {/* {getPosts.postText}
           </div> */}
         </div>
       </div>
@@ -350,14 +403,18 @@ export const SinglePost = () => {
       >
         {viewComments ? (
           <div>
-            <div className="show_comments_link" onClick={seeComments} style={{ color: `${theme === 'light' ? '#181A2A' : 'white'}`}}>
+            <div
+              className="show_comments_link"
+              onClick={seeComments}
+              style={{ color: `${theme === "light" ? "#181A2A" : "white"}` }}
+            >
               Hide Comments
             </div>
             <div
               style={{
                 overflowY: "scroll",
                 marginTop: "20px",
-                backgroundColor: `${theme === 'light' ? '#F6F6F7' : '#A6A6AC'}`,
+                backgroundColor: `${theme === "light" ? "#F6F6F7" : "#A6A6AC"}`,
                 height: "300px",
                 padding: "20px",
                 borderRadius: "10px",
@@ -370,7 +427,11 @@ export const SinglePost = () => {
                     style={{
                       padding: "10px",
                       borderRadius: "10px",
-                      border: `${ theme === 'light' ? '1px solid #181A2A' : '1px solid white'}`,
+                      border: `${
+                        theme === "light"
+                          ? "1px solid #181A2A"
+                          : "1px solid white"
+                      }`,
                       marginTop: "10px",
                     }}
                   >
@@ -409,7 +470,11 @@ export const SinglePost = () => {
             </div>
           </div>
         ) : (
-          <div className="show_comments_link" onClick={seeComments} style={{ color: `${theme === 'light' ? '#181A2A' : 'white'}`}}>
+          <div
+            className="show_comments_link"
+            onClick={seeComments}
+            style={{ color: `${theme === "light" ? "#181A2A" : "white"}` }}
+          >
             Show Comments
           </div>
         )}
@@ -427,7 +492,7 @@ export const SinglePost = () => {
           <textarea
             placeholder="Add Comment"
             style={{
-              backgroundColor: `${theme === 'light' ? '#F6F6F7' : '#A6A6AC'}`,
+              backgroundColor: `${theme === "light" ? "#F6F6F7" : "#A6A6AC"}`,
               padding: "10px",
               width: "100%",
               height: "100px",
@@ -440,7 +505,14 @@ export const SinglePost = () => {
             value={makeComment}
           />
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button type="submit" style={{ width: "20%", marginTop: "20px", color: `${theme === 'light' ? 'black' : 'white'}` }}>
+            <Button
+              type="submit"
+              style={{
+                width: "20%",
+                marginTop: "20px",
+                color: `${theme === "light" ? "black" : "white"}`,
+              }}
+            >
               {loading ? "Loading..." : "Add Comment"}
             </Button>
           </div>
@@ -482,10 +554,19 @@ export const SinglePost = () => {
             />
           ) : (
             <AiOutlineLike
-              style={{ width: "30px", height: "30px", color: `${theme === 'light' ? 'black' : 'white'}` }}
+              style={{
+                width: "30px",
+                height: "30px",
+                color: `${theme === "light" ? "black" : "white"}`,
+              }}
             />
           )}
-          <div style={{ color: `${theme === 'light' ? 'black' : 'white'}`, marginLeft: "10px" }}>
+          <div
+            style={{
+              color: `${theme === "light" ? "black" : "white"}`,
+              marginLeft: "10px",
+            }}
+          >
             {!getPostLikes ? getPosts.likes : getPostLikes.length}
           </div>
         </div>
@@ -496,10 +577,19 @@ export const SinglePost = () => {
             />
           ) : (
             <AiOutlineDislike
-              style={{ width: "30px", height: "30px", color: `${theme === 'light' ? 'black' : 'white'}` }}
+              style={{
+                width: "30px",
+                height: "30px",
+                color: `${theme === "light" ? "black" : "white"}`,
+              }}
             />
           )}
-          <div style={{ color: `${theme === 'light' ? 'black' : 'white'}`, marginLeft: "10px" }}>
+          <div
+            style={{
+              color: `${theme === "light" ? "black" : "white"}`,
+              marginLeft: "10px",
+            }}
+          >
             {!getPostDislikes ? getPosts.dislikes : getPostDislikes.length}
           </div>
         </div>

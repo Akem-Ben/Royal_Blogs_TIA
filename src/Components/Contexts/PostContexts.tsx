@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { allPosts, createPost } from '../../axiosFolder/axiosFunctions/postAxios/postAxios';
+import { allPosts, createPost, deletePost } from '../../axiosFolder/axiosFunctions/postAxios/postAxios';
 
 
 interface PostContextInterface {
@@ -7,6 +7,7 @@ interface PostContextInterface {
     setBlogPosts: React.Dispatch<React.SetStateAction<any[]>>;
     addPosts: (post:any) => void | undefined | any;
     getPosts: () => void | undefined | any;
+    deleteUserPost: (id:string) => void | undefined | any;
 }
 
 
@@ -33,8 +34,13 @@ export const BlogPostProvider = ({ children }: { children: React.ReactNode } ) =
         return data
     }
 
+    const deleteUserPost = async(id: string) => {
+        const data = await deletePost(id)
+        return data
+    }
+
     return (
-        <BlogPostContext.Provider value={{ blogPosts, setBlogPosts, addPosts, getPosts }}>
+        <BlogPostContext.Provider value={{ blogPosts, deleteUserPost, setBlogPosts, addPosts, getPosts }}>
             {children}
         </BlogPostContext.Provider>
     )

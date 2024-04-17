@@ -31,3 +31,13 @@ export const singlePost = async(id:string)=>{
     return error.response
   }
 }
+
+export const deletePost = async(id:string)=>{
+  try{
+    const response = await axios.delete(`/post/deleteUserPost/${id}`)
+    return response
+    
+  }catch(error:any){
+    return error.response
+  }
+}

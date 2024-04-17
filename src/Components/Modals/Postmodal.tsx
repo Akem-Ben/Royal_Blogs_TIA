@@ -2,8 +2,7 @@ import { Form, Button, Modal } from "react-bootstrap";
 import "./postmodal.css";
 import "react-quill/dist/quill.snow.css";
 import { useState } from "react";
-import React, { useRef } from "react";
-import { Editor } from "@tinymce/tinymce-react";
+import React from "react";
 import { useTheme } from "../Contexts/ThemeContext";
 import {
   showErrorToast,
@@ -11,6 +10,8 @@ import {
 } from "../../utilities/toastifySetup";
 import { useBlog } from "../Contexts/PostContexts";
 import { useNavigate } from "react-router-dom";
+import ReactQuill from "react-quill";
+
 
 interface Props {
   onClose: () => void;
@@ -31,7 +32,9 @@ const Postmodal = (Props: Props) => {
 
   const navigate = useNavigate();
 
-  const editorRef: any = useRef(null);
+  // const [value, setValue] = useState('');
+
+  // const editorRef: any = useRef(null);
 
   // const handleEditorData = () => {
   //   if (editorRef.current) {
@@ -57,6 +60,14 @@ const Postmodal = (Props: Props) => {
 
   const handleEditorChange = (content: string) => {
     setPostContent(content);
+      // Find all images in the content
+  const images = document.querySelectorAll('.ql-editor img');
+  
+  // Iterate over each image
+  images.forEach((image) => {
+    // Set width, height, and position as needed
+    image.setAttribute('style', 'width: 300px; height: 300px; position: relative;');
+  });
   };
 
   const handlePostSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -195,53 +206,44 @@ const Postmodal = (Props: Props) => {
               </div>
             </div>
 
-            <Modal.Body>
-              <Editor
-                apiKey="7cs4vxtd2eslppb8dp3p2tu8dtdw6en11luoyzid5e1cvbf5"
-                onInit={(editor: any) => (editorRef.current = editor)}
-                initialValue="<p style={{color: red}}>Write your text here</p>"
-                init={{
-                  height: 500,
-                  menubar: true,
-                  plugins: [
-                    "advlist",
-                    "autolink",
-                    "lists",
-                    "link",
-                    "image",
-                    "charmap",
-                    "preview",
-                    "anchor",
-                    "searchreplace",
-                    "visualblocks",
-                    "code",
-                    "fullscreen",
-                    "insertdatetime",
-                    "media",
-                    "table",
-                    "code",
-                    "help",
-                    "wordcount",
-                  ],
-                  setup: (editor) => {
-                    editor.on("Change", () => {
-                      const content = editor.getContent();
-                      handleEditorChange(content);
-                    });
-                  },
-                  toolbar:
-                    "undo redo | blocks | " +
-                    "bold italic forecolor | alignleft aligncenter " +
-                    "alignright alignjustify | bullist numlist outdent indent | " +
-                    "removeformat | help |" +
-                    "image",
-                  images_file_types: "jpg,svg,webp",
-                  content_style: `body { font-family:Helvetica,Arial,sans-serif; font-size:14px; background-color: ${
-                    theme === "light" ? "#E8E8EA" : "#181A2A"
-                  }; color: ${theme === "light" ? "#181A2A" : "white"}}`,
-                }}
-              />
+            <Modal.Body style={{}}>
+<ReactQuill
+        theme="snow"
+        value={postContent}
+        onChange={handleEditorChange}
+          style={{
+          width: "100%",
+          height: "350px",
+          marginBottom: "90px",
+          color: `${theme === "light" ? "#181A2A" : "white"}`
+        }}
+        modules={{
+          toolbar: [
+            [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+            [{size: []}],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+            [{'list': 'ordered'}, {'list': 'bullet'}, 
+             {'indent': '-1'}, {'indent': '+1'}],
+            ['link', 'image', 'video'],
+            ['color', 'background'], // Added color and background color options
+            [{ 'align': [] }],
+            ['imageResize', 'imageRotate'], // Added options for image resizing and restructuring
+            ['clean']
+          ],
+        }}
+        formats={[
+          'header', 'font', 'size',
+          'bold', 'italic', 'underline', 'strike', 'blockquote',
+          'list', 'bullet', 'indent',
+          'link', 'image', 'video',
+          'color', 'background',
+          'align', // Added formats for text alignment
+          'imageResize', 'imageRotate' // Added formats for image resizing and restructuring
+        ]}
+      />
+
             </Modal.Body>
+
 
             <Modal.Footer
               style={{
@@ -270,7 +272,6 @@ const Postmodal = (Props: Props) => {
                 {loading ? "Loading..." : "Save Changes"}
               </Button>
             </Modal.Footer>
-
           </Modal.Dialog>
         </div>
       </div>
@@ -279,3 +280,5 @@ const Postmodal = (Props: Props) => {
 };
 
 export default Postmodal;
+
+

@@ -10,3 +10,8 @@
 .form-control::placeholder{
     color: black;
 }
+
+.post-delete:hover{
+    cursor: pointer;
+    color: red
+}
