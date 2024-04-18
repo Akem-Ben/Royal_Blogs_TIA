@@ -4,6 +4,9 @@ import { useBlog } from "../../Contexts/PostContexts";
 import { useTheme } from "../../Contexts/ThemeContext";
 import './heroCard.css';
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
+import { FaRegComments } from "react-icons/fa";
 
 const HeroCard = () => {
   let postToDisplay: any[] = [];
@@ -21,6 +24,10 @@ const HeroCard = () => {
     : null;
 
   const newPost = postToDisplay[0];
+
+  useEffect(()=>{
+    console.log(newPost)
+  })
 
   return (
     <>
@@ -64,8 +71,8 @@ const HeroCard = () => {
                 marginTop: "0.5rem",
               }}
             >
-              {newPost?.dataValues.title?.length > 60
-                ? `${newPost.dataValues.title.substring(0, 60)}...`
+              {newPost?.dataValues.title?.length > 30
+                ? `${newPost.dataValues.title.substring(0, 30)}...`
                 : newPost.dataValues.title}
             </Card.Title>
             <div
@@ -86,6 +93,47 @@ const HeroCard = () => {
                 {convertISOtoDate(newPost.dataValues.createdAt)}
               </div>
             </div>
+            <div
+                      style={{
+                        display: "flex",
+                        width: "100px",
+                        justifyContent: "space-between",
+                        marginTop: '20px',
+                        fontSize: '10px',
+                        color: `${theme === "light" ? "black" : "white"}`
+                      }}
+                    >
+                      <div>
+                        <AiOutlineLike
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            color: `${theme === "light" ? "black" : "white"}`,
+                          }}
+                        />
+                        <div>{newPost.dataValues.likes}</div>
+                      </div>
+                      <div>
+                        <AiOutlineDislike
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            color: `${theme === "light" ? "black" : "white"}`,
+                          }}
+                        />
+                        <div>{newPost.dataValues.dislikes}</div>
+                      </div>
+                      <div>
+                      <FaRegComments
+                       style={{
+                        width: "20px",
+                        height: "20px",
+                        color: `${theme === "light" ? "black" : "white"}`,
+                      }} 
+                      />
+                      <div>{newPost.comments.length}</div>
+                      </div>
+                    </div>
           </Card.Body>
         </Card>
       ) : null}

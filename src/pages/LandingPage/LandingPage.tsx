@@ -87,7 +87,7 @@ const LandingPage = () => {
 
       <Footer />
 
-      ({showModal && <Postmodal onClose={handleModalClose} />})
+      {showModal && <Postmodal onClose={handleModalClose} />}
       
     </div>
   );
