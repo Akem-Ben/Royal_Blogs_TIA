@@ -3,12 +3,31 @@
     color: gray;
 }
 
-@media screen and (max-width: 1100px){
-    .search{
-        display: none;
+/* Responsive Styles for Navbar */
+@media (max-width: 768px) {
+    .navbar-container .menu-items {
+      display: none;
     }
+  
+    .navbar-container .menu-toggle {
+      display: flex;
+    }
+  
+    .navbar-container .menu-toggle button {
+      margin-right: 10px;
+    }
+  
+    .navbar-container .menu-toggle .navbar-toggler {
+      border: none;
+    }
+  
+    /* .navbar-container .menu-toggle .navbar-toggler-icon {
+      background-color: `${theme === "light" ? "#181A2A" : "white"}`;
+    } */
+  
+    .navbar-container .menu-toggle .navbar-collapse {
+      justify-content: center;
+    }
+  }
+  
 
-    .menu-items{
-        display: none;
-    }
-}

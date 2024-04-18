@@ -2,6 +2,8 @@ import { Card } from "react-bootstrap";
 import { convertISOtoDate } from "../../../helper functions/helpers";
 import { useBlog } from "../../Contexts/PostContexts";
 import { useTheme } from "../../Contexts/ThemeContext";
+import './heroCard.css';
+import { useNavigate } from "react-router-dom";
 
 const HeroCard = () => {
   let postToDisplay: any[] = [];
@@ -9,6 +11,8 @@ const HeroCard = () => {
   const { blogPosts } = useBlog();
 
   const { theme } = useTheme();
+
+  const navigate = useNavigate()
 
   blogPosts
     ? (postToDisplay = blogPosts.sort(
@@ -22,6 +26,7 @@ const HeroCard = () => {
     <>
       {newPost ? (
         <Card
+        className={`${theme === 'light' ? 'hero-card-light' : 'hero-card-dark'}`}
           style={{
             width: "25rem",
             height: "15rem",
@@ -34,6 +39,8 @@ const HeroCard = () => {
             }`,
             padding: "1rem",
           }}
+
+          onClick={()=> navigate(`/singlepost/${newPost.dataValues.id}`)}
         >
           <Card.Body>
             <Card.Text
@@ -44,6 +51,8 @@ const HeroCard = () => {
                 padding: "5px",
                 color: "white",
                 width: "4.5rem",
+                display: 'flex',
+                justifyContent: 'center'
               }}
             >
               Top Post

@@ -18,7 +18,7 @@ const PostsSection = () => {
 
   const [itemOffset, setItemOffset] = useState(0);
 
-  const itemsPerPage = 9;
+  const itemsPerPage = 12;
 
   const endOffset = itemOffset + itemsPerPage;
 
@@ -38,7 +38,7 @@ const PostsSection = () => {
   };
 
   return (
-    <div style={{ marginTop: "4rem", marginLeft: "8rem", marginRight: "8rem" }}>
+    <div style={{ marginTop: "4rem", marginLeft: "5rem", marginRight: "8rem" }}>
       <div>
         <h3
           style={{
@@ -54,8 +54,9 @@ const PostsSection = () => {
             display: "grid",
             justifyContent: "space-between",
             marginTop: "20px",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gridRowGap: "30px",
+            gridTemplateColumns: "1fr 1fr 1fr 1fr",
+            gridRowGap: "40px",
+            gap: '20px'
           }}
         >
           {blogPosts?.length ? (
@@ -65,7 +66,8 @@ const PostsSection = () => {
                 <Card
                   key={index}
                   style={{
-                    width: "360px",
+                    width: "310px",
+                    height: "450px",
                     padding: "1rem",
                     border: `${
                       theme === "dark"
@@ -78,7 +80,7 @@ const PostsSection = () => {
                     fontFamily: "sans-serif",
                   }}
                   onClick={() => navigate(`/singlepost/${item.dataValues.id}`)}
-                  className="post_container"
+                  className={`${theme === 'light' ? 'post-container-light' : 'post-container-dark'}`}
                 >
                   <div
                     style={{
@@ -97,8 +99,8 @@ const PostsSection = () => {
                     <img
                       src={item.dataValues.postImage}
                       style={{
-                        width: "100%",
-                        height: "100%",
+                        width: "96%",
+                        height: "96%",
                         objectFit: "cover",
                       }}
                     />
@@ -145,14 +147,15 @@ const PostsSection = () => {
                       width: "100%",
                       marginTop: "1em",
                       display: "flex",
+                      flexDirection: 'column',
                       gap: "8px",
                     }}
                   >
                     <div
                       style={{
                         display: "flex",
-                        width: "40%",
-                        justifyContent: "space-between",
+                        width: "80%",
+                        justifyContent: "space-between"
                       }}
                     >
                       <div style={{ width: "3em" }}>
@@ -161,10 +164,12 @@ const PostsSection = () => {
                           style={{ borderRadius: "50%", height: "30px" }}
                         />
                       </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-around', width: '90%'}}>
                       <div style={{ marginTop: "7px" }}>{item.ownerName}</div>
-                    </div>
                     <div style={{ marginTop: "7px" }}>
                       {convertISOtoDate(item.dataValues.createdAt)}
+                    </div>
+                    </div>
                     </div>
                     <div
                       style={{
@@ -221,7 +226,7 @@ const PostsSection = () => {
           )}
         </div>
         {blogPosts ? (
-          blogPosts.length > 9 ? (
+          blogPosts.length > 12 ? (
             <div
               style={{
                 display: "flex",

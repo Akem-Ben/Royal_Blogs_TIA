@@ -154,7 +154,6 @@ export const SinglePost = () => {
       const data = await singlePost(post_Id);
 
       setPostOwner(data.data.postOwner);
-
       return setGetPosts(data.data.findPost);
     } catch (error) {
       console.log(error);
@@ -286,117 +285,114 @@ export const SinglePost = () => {
     <>
       <Navigation />
       <div style={{ marginRight: "15rem", marginLeft: "15rem" }}>
-        <Card.Text
-          style={{
-            backgroundColor: "#4B6BFB",
-            fontSize: "11px",
-            borderRadius: "5px",
-            padding: "5px",
-            color: "white",
-            width: "4.5rem",
-            marginTop: "100px",
-          }}
-        >
-          Technology
-        </Card.Text>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <h1
-            style={{
-              color: `${theme === "light" ? "#181A2A" : "white"}`,
-              marginTop: "10px",
-              fontFamily: "sans-serif",
-              fontSize: "50px",
-            }}
-          >
-            {getPosts.title}
-          </h1>
-          <div
-            style={{
-              display: "felx",
-              justifyContent: "center",
-              alignContent: "center",
-              color: `${theme === "light" ? "#181A2A" : "white"}`,
-            }}
-          >
-            {deleteLoading ? (
-              <p style={{ color: "red" }}>Deleting Post...</p>
-            ) : (
-              <MdDeleteOutline
-                style={{ width: "35px", height: "35px" }}
-                className="post-delete"
-                onClick={handlePostDelete}
-              />
-            )}
-          </div>
-        </div>
-        <div
-          style={{
-            fontSize: "10px",
-            color: "gray",
-            width: "25%",
-            marginTop: "1em",
-            display: "flex",
-            justifyContent: "space-around",
-          }}
-        >
-          <div style={{ display: "flex", width: "150px", gap: "5px" }}>
-            <div style={{ width: "2em" }}>
-              <Card.Img
-                src={postOwner.profileImage}
-                width="1px"
-                height="2px"
-                style={{ borderRadius: "50%" }}
-              />
-            </div>
-            <div>{postOwner.fullName}</div>
-          </div>
-          <div>{convertISOtoDate(getPosts.createdAt)}</div>
-        </div>
 
-        <div
-          style={{
-            marginTop: "50px",
-            padding: "30px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-            backgroundColor: `${theme === "light" ? "#F6F6F7" : "#242535"}`,
-          }}
-        >
-          <div
+        {Object.keys(getPosts).length !== 0 ? (
+        <>
+        <Card.Text
             style={{
-              width: "90%",
-              borderRadius: "10px",
-              height: "700px",
-              overflowY: "scroll",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: "40px",
+              backgroundColor: "#4B6BFB",
+              fontSize: "11px",
+              borderRadius: "5px",
+              padding: "5px",
+              color: "white",
+              width: "4.5rem",
+              marginTop: "100px",
             }}
           >
-            <img
-              src={getPosts.postImage}
-              width="80%"
-              alt="blog picture"
-              style={{ borderRadius: "10px" }}
-            />
-          </div>
-          <div
-            style={{
-              marginTop: "",
-              fontFamily: "Inter",
-              textAlign: "justify",
-              color: `${theme === "light" ? "#3B3C4A" : "white"}`,
-            }}
-            dangerouslySetInnerHTML={{
-              __html: getPosts.postText,
-            }}
-          />
-          {/* {getPosts.postText}
-          </div> */}
-        </div>
+            Technology
+          </Card.Text><div style={{ display: "flex", justifyContent: "space-between" }}>
+              <h1
+                style={{
+                  color: `${theme === "light" ? "#181A2A" : "white"}`,
+                  marginTop: "10px",
+                  fontFamily: "sans-serif",
+                  fontSize: "50px",
+                }}
+              >
+                {getPosts.title}
+              </h1>
+              <div
+                style={{
+                  display: "felx",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  color: `${theme === "light" ? "#181A2A" : "white"}`,
+                }}
+              >
+                {deleteLoading ? (
+                  <p style={{ color: "red" }}>Deleting Post...</p>
+                ) : (
+                  <MdDeleteOutline
+                    style={{ width: "35px", height: "35px" }}
+                    className="post-delete"
+                    onClick={handlePostDelete} />
+                )}
+              </div>
+            </div><div
+              style={{
+                fontSize: "10px",
+                color: "gray",
+                width: "25%",
+                marginTop: "1em",
+                display: "flex",
+                justifyContent: "space-around",
+              }}
+            >
+              <div style={{ display: "flex", width: "150px", gap: "5px" }}>
+                <div style={{ width: "2em" }}>
+                  <Card.Img
+                    src={postOwner.profileImage}
+                    width="1px"
+                    height="2px"
+                    style={{ borderRadius: "50%" }} />
+                </div>
+                <div>{postOwner.fullName}</div>
+              </div>
+              <div>{convertISOtoDate(getPosts.createdAt)}</div>
+            </div><div
+              style={{
+                marginTop: "50px",
+                padding: "30px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+                backgroundColor: `${theme === "light" ? "#F6F6F7" : "#242535"}`,
+              }}
+            >
+              <div
+                style={{
+                  width: "90%",
+                  borderRadius: "10px",
+                  height: "700px",
+                  overflowY: "scroll",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginBottom: "40px",
+                }}
+              >
+                <img
+                  src={getPosts.postImage}
+                  width="80%"
+                  alt="blog picture"
+                  style={{ borderRadius: "10px" }} />
+              </div>
+              <div
+                style={{
+                  marginTop: "",
+                  fontFamily: "Inter",
+                  textAlign: "justify",
+                  color: `${theme === "light" ? "#3B3C4A" : "white"}`,
+                }}
+                dangerouslySetInnerHTML={{
+                  __html: getPosts.postText,
+                }} />
+              {/* {getPosts.postText}
+    </div> */}
+            </div>
+            </>
+        ):( <div style={{color: 'red', marginTop: '100px', fontSize: '30px'}}>Loading Post...</div>)}
       </div>
       <div
         style={{ marginTop: "50px", marginRight: "15rem", marginLeft: "15rem" }}

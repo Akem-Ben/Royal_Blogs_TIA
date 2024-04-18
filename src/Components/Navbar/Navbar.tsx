@@ -45,6 +45,7 @@ const Navigation = () => {
         style={{ boxShadow: "0 4px 8px rgba(0,0,0,0.4)" }}
         bg={`${theme === "light" ? "white" : "#181A2A"}`}
         data-bs-theme={`${theme === "light" ? "light" : "dark"}`}
+        expand="md"
       >
         <Container
           style={{
@@ -78,6 +79,7 @@ const Navigation = () => {
               </span>
             </Navbar.Brand>
           </div>
+
           <div className="menu-items" style={{ width: "40%" }}>
             <Nav
               style={{ display: "flex", justifyContent: "space-around" }}
@@ -89,45 +91,50 @@ const Navigation = () => {
               <Nav.Link href="#pricing">Contact Us</Nav.Link>
             </Nav>
           </div>
-          {mainUser ? (
-            <div
-              style={{
-                display: "flex",
-                width: "10em",
-                justifyContent: "space-between",
-              }}
-            >
-              <Button
-                onClick={logout}
-                variant="success"
-                style={{ color: `${theme === "light" ? "#181A2A" : "white"}` }}
-              >
-                Logout
-              </Button>{" "}
-              <Nav.Link href="/profile">
-                <img
-                  src={
-                    mainUser.profileImage.length
-                      ? mainUser.profileImage
-                      : profile
-                  }
-                  width="30px"
-                  alt="profile image"
-                  style={{ borderRadius: "50%", marginTop: "3px" }}
-                />
-              </Nav.Link>
-            </div>
-          ) : (
-            <div>
-              <Button
-                onClick={() => (window.location.href = "/login")}
-                variant="success"
-                style={{ color: `${theme === "light" ? "#181A2A" : "white"}` }}
-              >
-                Sign in
-              </Button>{" "}
-            </div>
-          )}
+
+          <div className="menu-toggle">
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+                {mainUser ? (
+                  <>
+                    <Button
+                      onClick={logout}
+                      variant="success"
+                      style={{
+                        color: `${theme === "light" ? "#181A2A" : "white"}`,
+                      }}
+                    >
+                      Logout
+                    </Button>{" "}
+                    <Nav.Link href="/profile">
+                      <img
+                        src={
+                          mainUser.profileImage.length
+                            ? mainUser.profileImage
+                            : profile
+                        }
+                        width="30px"
+                        alt="profile image"
+                        style={{ borderRadius: "50%", marginTop: "3px" }}
+                      />
+                    </Nav.Link>
+                  </>
+                ) : (
+                  <Button
+                    onClick={() => (window.location.href = "/login")}
+                    variant="success"
+                    style={{
+                      color: `${theme === "light" ? "#181A2A" : "white"}`,
+                    }}
+                  >
+                    Sign in
+                  </Button>
+                )}
+              </Nav>
+            </Navbar.Collapse>
+          </div>
+
           <div>
             <InputGroup
               style={{

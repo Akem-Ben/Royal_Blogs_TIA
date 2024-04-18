@@ -1,0 +1,9 @@
+.hero-card-light:hover{
+    cursor: pointer;
+    filter:sepia(1.0)
+}
+
+.hero-card-dark:hover{
+    cursor: pointer;
+    filter:brightness(1.3);
+}

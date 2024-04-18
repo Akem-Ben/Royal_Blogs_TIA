@@ -1,11 +1,16 @@
-.post_container:hover{
+.post-container-light:hover{
     cursor: pointer;
-    filter: brightness(1.3);
+    filter:sepia(1.0)
+}
+
+.post-container-dark:hover{
+    cursor: pointer;
+    filter:brightness(1.3);
 }
 
 .paginate{
     display: flex;
-    width: 50%;
+    width: 20%;
     justify-content: space-between;
     align-items: center;
 }
