@@ -16,8 +16,8 @@ const config = (): Config => {
             secrets: {
                 apiHost:
                     environment === "development"
-                        ? "http://localhost:3000/"
-                        : "http://localhost:3000/"
+                        ? "https://royal-blogs-tia-backend.onrender.com/"
+                        : "https://royal-blogs-tia-backend.onrender.com/"
             },
         });
     }
