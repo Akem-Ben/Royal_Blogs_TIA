@@ -13,6 +13,7 @@ import profile from "../../assets/header/navbar/profile.jpeg";
 import { BsToggleOff } from "react-icons/bs";
 import { BsToggleOn } from "react-icons/bs";
 import { useTheme } from "../Contexts/ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
   const user: any = localStorage.getItem("user");
@@ -29,6 +30,8 @@ const Navigation = () => {
     localStorage.removeItem("token");
     return (window.location.href = "/");
   };
+
+  const navigate = useNavigate()
 
   return (
     <div
@@ -122,7 +125,7 @@ const Navigation = () => {
                   </>
                 ) : (
                   <Button
-                    onClick={() => (window.location.href = "/login")}
+                    onClick={() => navigate('/login')}
                     variant="success"
                     style={{
                       color: `${theme === "light" ? "#181A2A" : "white"}`,
