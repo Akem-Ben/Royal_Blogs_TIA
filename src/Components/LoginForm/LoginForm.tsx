@@ -218,9 +218,9 @@ const LoginForm = () => {
           <em>
             <strong>
               Not Registered? Click{" "}
-              <a href="/signup" style={{ color: "green" }}>
+              <span onClick={() => navigate('/signup')} style={{ color: "green" }}>
                 here
-              </a>{" "}
+              </span>{" "}
               to Register
             </strong>
           </em>

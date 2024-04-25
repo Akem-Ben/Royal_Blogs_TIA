@@ -84,7 +84,7 @@ function VerificationCard() {
             </Card.Title>
             <Card.Text style={{ color: "#97989F" }}>
               Redirecting to Login in <span style={{color: 'green'}}>{seconds}s</span>...
-              If it does not redirect, click <a href='/login' style={{color: "red"}}>here</a> to proceed to login
+              If it does not redirect, click <span onClick={() => navigate('/login')} style={{color: "red"}}>here</span> to proceed to login
             </Card.Text>
           </div>
         </Card.Body>

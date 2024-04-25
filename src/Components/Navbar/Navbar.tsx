@@ -28,7 +28,7 @@ const Navigation = () => {
   const logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    return (window.location.href = "/");
+    return window.location.href = "/" ;
   };
 
   const navigate = useNavigate()

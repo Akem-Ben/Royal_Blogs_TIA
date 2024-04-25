@@ -3,9 +3,12 @@ import "./footer.css";
 import NewsLetterCard from "../Cards/NewsLetter/Newsletter";
 import logo from "../../assets/header/navbar/Union.png";
 import { useTheme } from "../Contexts/ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const { theme } = useTheme();
+
+  const navigate = useNavigate()
 
   return (
     <div
@@ -88,7 +91,7 @@ const Footer = () => {
               }}
             >
               <ListGroup.Item className="links">
-                <a href="/">Home</a>
+                <span onClick={() => navigate('/')}>Home</span>
               </ListGroup.Item>
               <ListGroup.Item className="links">About</ListGroup.Item>
               <ListGroup.Item className="links">Blogs</ListGroup.Item>

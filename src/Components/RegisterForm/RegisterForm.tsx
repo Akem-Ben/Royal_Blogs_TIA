@@ -303,9 +303,9 @@ const RegisterForm = () => {
           <em>
             <strong>
               Already Registered? Click{" "}
-              <a href="/login" style={{ color: "green" }}>
+              <span onClick={() => navigate('/login')} style={{ color: "green" }}>
                 here
-              </a>{" "}
+              </span>{" "}
               to login
             </strong>
           </em>
