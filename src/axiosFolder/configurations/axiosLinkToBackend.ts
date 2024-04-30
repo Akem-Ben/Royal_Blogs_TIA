@@ -16,8 +16,8 @@ const config = (): Config => {
             secrets: {
                 apiHost:
                     environment === "development"
-                        ? "https://royal-blogs-tia-backend.onrender.com/"
-                        : "https://royal-blogs-tia-backend.onrender.com/"
+                        ? "http://localhost:3030/"
+                        : "http://localhost:3030/"
             },
         });
     }
@@ -27,4 +27,5 @@ const config = (): Config => {
 export default config;
 
 // https://royal-blogs-tia.vercel.app/
-//"http://localhost:3000/"
+//"https://localhost:3000/"
+// "https://royal-blogs-tia-backend.onrender.com/"

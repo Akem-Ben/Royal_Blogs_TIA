@@ -8,8 +8,8 @@ function NewsLetterCard() {
 
 
   return (
-    <Card style={{ backgroundColor: `${theme === 'light' ? 'white' : '#242535'}`, width: '22rem', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
-      <Card.Body style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-around'}}>
+    <Card className={`newsletter-container ${theme === 'dark' ? 'newsletter-container-dark' : null}`}>
+      <Card.Body className="newsletter-container2">
         <div>
         <Card.Title style={{color: `${theme === 'light' ? '#242535' : 'white'}`}}>Weekly Newsletter</Card.Title>
         <Card.Text style={{color: '#97989F'}}>

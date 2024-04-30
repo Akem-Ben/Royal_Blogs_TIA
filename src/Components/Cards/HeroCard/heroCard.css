@@ -1,4 +1,18 @@
-.hero-card-light:hover{
+.hero-card-container{
+    width: 25rem;
+    height: 15rem;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #E8E8EA;
+}
+
+.hero-card-dark{
+    background-color: #181A2A;
+    border: 1px solid #1F2134;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero-card-container:hover{
     cursor: pointer;
     filter:sepia(1.0)
 }
@@ -6,4 +20,61 @@
 .hero-card-dark:hover{
     cursor: pointer;
     filter:brightness(1.3);
+}
+
+.top-post-tag {
+    background-color: #4B6BFB;
+    font-size: 11px;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    width: 4.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-card-title {
+    font-size: 27px;
+    margin-top: 0.5rem;
+    color: #181A2A
+}
+
+.hero-card-title-dark {
+    color: white
+}
+
+.hero-card-post-owner {
+    font-size: 10px;
+    color: gray;
+    width: 65%;
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-owner {
+    margin-top: 6px;
+}
+
+.post-analytics-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-size: 10px;
+    width: 100px;
+    color: black
+}
+
+.post-analytics-container-dark {
+    color: white
+}
+
+.hero-card-analytic-icon {
+    width: 20px;
+    height: 20px;
+    color: black
+}
+
+.hero-card-analytic-icon-dark {
+    color: white
 }

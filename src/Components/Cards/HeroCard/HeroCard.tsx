@@ -33,103 +33,43 @@ const HeroCard = () => {
     <>
       {newPost ? (
         <Card
-        className={`${theme === 'light' ? 'hero-card-light' : 'hero-card-dark'}`}
-          style={{
-            width: "25rem",
-            height: "15rem",
-            backgroundColor: `${theme === "light" ? "white" : "#181A2A"}`,
-            border: `${
-              theme === "light" ? "1px solid #E8E8EA" : "1px solid #1F2134"
-            }`,
-            boxShadow: `${
-              theme === "light" ? null : "0 4px 8px rgba(0, 0, 0, 0.1)"
-            }`,
-            padding: "1rem",
-          }}
-
+        className={`hero-card-container ${theme === 'dark' ? 'hero-card-dark': null}`}
           onClick={()=> navigate(`/singlepost/${newPost.dataValues.id}`)}
         >
           <Card.Body>
-            <Card.Text
-              style={{
-                backgroundColor: "#4B6BFB",
-                fontSize: "11px",
-                borderRadius: "5px",
-                padding: "5px",
-                color: "white",
-                width: "4.5rem",
-                display: 'flex',
-                justifyContent: 'center'
-              }}
-            >
+            <Card.Text className="top-post-tag">
               Top Post
             </Card.Text>
-            <Card.Title
-              style={{
-                color: `${theme === "light" ? "#181A2A" : "white"}`,
-                fontSize: "27px",
-                marginTop: "0.5rem",
-              }}
-            >
+            <Card.Title className={`hero-card-title ${theme === 'dark' ? 'hero-card-title-dark': null}`}>
               {newPost?.dataValues.title?.length > 30
                 ? `${newPost.dataValues.title.substring(0, 30)}...`
                 : newPost.dataValues.title}
             </Card.Title>
-            <div
-              style={{
-                fontSize: "10px",
-                color: "gray",
-                width: "65%",
-                marginTop: "1em",
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <div style={{ width: "2em" }}>
+            <div className="hero-card-post-owner">
+              <div style={{ width: "2em", marginTop: '10px' }}>
                 <Card.Img src={newPost.ownerImage} width="1px" height="2px" />
               </div>
-              <div style={{ marginTop: "6px" }}>{newPost.ownerName}</div>
-              <div style={{ marginTop: "6px" }}>
+              <div className="post-owner">{newPost.ownerName}</div>
+              <div className="post-owner">
                 {convertISOtoDate(newPost.dataValues.createdAt)}
               </div>
             </div>
-            <div
-                      style={{
-                        display: "flex",
-                        width: "100px",
-                        justifyContent: "space-between",
-                        marginTop: '20px',
-                        fontSize: '10px',
-                        color: `${theme === "light" ? "black" : "white"}`
-                      }}
-                    >
+            <div className={`post-analytics-container ${theme === 'dark' ? 'post-analytics-container-dark': null}`}>
                       <div>
                         <AiOutlineLike
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                            color: `${theme === "light" ? "black" : "white"}`,
-                          }}
+                          className={`hero-card-analytic-icon ${theme === 'dark' ? 'hero-card-analytic-icon-dark': null}`}
                         />
                         <div>{newPost.dataValues.likes}</div>
                       </div>
                       <div>
                         <AiOutlineDislike
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                            color: `${theme === "light" ? "black" : "white"}`,
-                          }}
+                          className={`hero-card-analytic-icon ${theme === 'dark' ? 'hero-card-analytic-icon-dark': null}`}
                         />
                         <div>{newPost.dataValues.dislikes}</div>
                       </div>
                       <div>
-                      <FaRegComments
-                       style={{
-                        width: "20px",
-                        height: "20px",
-                        color: `${theme === "light" ? "black" : "white"}`,
-                      }} 
+                      <FaRegComments 
+                      className={`hero-card-analytic-icon ${theme === 'dark' ? 'hero-card-analytic-icon-dark': null}`}
                       />
                       <div>{newPost.comments.length}</div>
                       </div>

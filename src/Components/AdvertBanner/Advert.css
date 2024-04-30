@@ -1,0 +1,47 @@
+.advert-banner-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 7em;
+    color: #6A6975;
+}
+
+.advert-banner-sub-container{
+    width: 600px;
+    display: flex;
+    border-radius: 50px;
+    color: #6A6975;
+    justify-content: center;
+    align-items: center;
+}
+
+.advert-banner-card{
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    color: #6A6975;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: #E8E8EA;
+    background-color: #E8E8EA;
+}
+
+.advert-dark{
+    border: #242535;
+    background-color: #242535;
+}
+
+.card-title{
+    font-size: 12px;
+    font-family: sans-serif;
+}
+
+.card-subtitle{
+    font-weight: bolder; 
+    font-family: sans-serif;
+}
+
+.card-text {
+    font-family: sans-serif;
+}

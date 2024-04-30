@@ -1,3 +1,21 @@
+.newsletter-container {
+    background-color: white;
+    width: 22rem; 
+    height: 100%; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center;
+}
+
+.newsletter-container-dark {
+    background-color: #242535
+}
+
+.newsletter-container2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
 .input::placeholder{
     color: #97989F;
 }

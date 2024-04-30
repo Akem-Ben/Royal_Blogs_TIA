@@ -1,52 +1,24 @@
 import { Card } from "react-bootstrap";
 import { useTheme } from "../Contexts/ThemeContext";
+import "./Advert.css";
 
 const AdvertBanner = () => {
   const { theme } = useTheme();
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: "7em",
-        color: "#6A6975",
-      }}
-    >
-      <div
-        style={{
-          width: "600px",
-          display: "flex",
-          borderRadius: "50px",
-          color: "#6A6975",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+    <div className="advert-banner-container">
+      <div className="advert-banner-sub-container">
         <Card
-          style={{
-            border: `${theme === "light" ? "#E8E8EA" : "#242535"}`,
-            borderRadius: "10px",
-            backgroundColor: `${theme === "light" ? "#E8E8EA" : "#242535"}`,
-            width: "100%",
-            display: "flex",
-            color: "#6A6975",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-          }}
+          className={`advert-banner-card ${
+            theme === "dark" ? "advert-dark" : null
+          }`}
         >
           <Card.Body>
-            <Card.Text style={{ fontSize: "12px", fontFamily: "sans-serif" }}>
-              Advertisement
-            </Card.Text>
-            <Card.Subtitle
-              style={{ fontWeight: "bolder", fontFamily: "sans-serif" }}
-            >
+            <Card.Text className="card-title">Advertisement</Card.Text>
+            <Card.Subtitle className="card-subtitle">
               You can place ads
             </Card.Subtitle>
-            <Card.Text style={{ fontFamily: "sans-serif" }}>750x100</Card.Text>
+            <Card.Text className="card-text">750x100</Card.Text>
           </Card.Body>
         </Card>
       </div>
