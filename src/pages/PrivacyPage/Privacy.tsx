@@ -1,11 +1,8 @@
-import React from "react";
 import Navigation from "../../Components/Navbar/Navbar";
 import "./privacy.css";
 import Footer from "../../Components/Footer/Footer";
-import { useTheme } from "../../Components/Contexts/ThemeContext";
 
 export const Privacy = () => {
-  const { theme } = useTheme();
 
   return (
     <div>
