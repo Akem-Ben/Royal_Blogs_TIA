@@ -167,7 +167,7 @@ const RegisterForm = () => {
           ) : null}
         </div>
         <div>
-          <Form.Label htmlFor="inputPassword5" style={{ marginTop: "10px" }}>
+          <Form.Label htmlFor="userName" style={{ marginTop: "10px" }}>
             User Name
           </Form.Label>
           <Form.Control

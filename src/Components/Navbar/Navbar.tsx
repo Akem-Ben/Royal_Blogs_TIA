@@ -36,16 +36,11 @@ const Navigation = () => {
   return (
     <div
       style={{
-        top: "0",
-        position: "fixed",
-        zIndex: 100,
-        width: "100%",
         backgroundColor: `${theme === "light" ? "white" : "#181A2A"}`,
       }}
       className="navbar-container"
     >
       <Navbar
-        style={{ boxShadow: "0 4px 8px rgba(0,0,0,0.4)" }}
         bg={`${theme === "light" ? "white" : "#181A2A"}`}
         data-bs-theme={`${theme === "light" ? "light" : "dark"}`}
         expand="md"
@@ -92,6 +87,7 @@ const Navigation = () => {
               <Nav.Link href="#features">Latest News</Nav.Link>
               <Nav.Link href="#pricing">Pages</Nav.Link>
               <Nav.Link href="#pricing">Contact Us</Nav.Link>
+              <Nav.Link href="/privacy">Privacy Policy</Nav.Link>
             </Nav>
           </div>
 
@@ -138,7 +134,7 @@ const Navigation = () => {
             </Navbar.Collapse>
           </div>
 
-          <div>
+          <div className="search-bar-section">
             <InputGroup
               style={{
                 display: "flex",
@@ -159,7 +155,7 @@ const Navigation = () => {
             </InputGroup>
           </div>
 
-          <div>
+          <div className="mode-toggle">
             {theme === "light" ? (
               <BsToggleOff
                 style={{ color: "black", height: "40px", width: "50px" }}

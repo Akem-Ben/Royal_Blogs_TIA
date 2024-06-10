@@ -1,15 +1,28 @@
+.navbar-container {
+  top: 0;
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+}
+
 .search:hover{
     cursor: pointer;
     color: gray;
 }
 
 /* Responsive Styles for Navbar */
-@media (max-width: 768px) {
-    .navbar-container .menu-items {
+@media (max-width: 770px) {
+    .navbar-container .menu-items, .search-bar-section, .mode-toggle{
       display: none;
     }
+    .navbar-container {
+      width: 100vw;
+    }
+    /* .navbar-container{
+      width: 100%;
+    } */
   
-    .navbar-container .menu-toggle {
+    /* .navbar-container .menu-toggle {
       display: flex;
     }
   
@@ -19,15 +32,15 @@
   
     .navbar-container .menu-toggle .navbar-toggler {
       border: none;
-    }
+    } */
   
     /* .navbar-container .menu-toggle .navbar-toggler-icon {
       background-color: `${theme === "light" ? "#181A2A" : "white"}`;
     } */
   
-    .navbar-container .menu-toggle .navbar-collapse {
+    /* .navbar-container .menu-toggle .navbar-collapse {
       justify-content: center;
-    }
+    } */
   }
   
 

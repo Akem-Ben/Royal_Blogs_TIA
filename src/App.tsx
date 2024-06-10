@@ -10,6 +10,7 @@ import { VerificationPage } from './pages/VerificationPage/VerificationPage'
 import { BlogPostProvider } from './Components/Contexts/PostContexts'
 import {UserProvider} from './Components/Contexts/userDetailsContext'
 import { ThemeContextProvider } from './Components/Contexts/ThemeContext'
+import { Privacy } from './pages/PrivacyPage/Privacy'
 
 const routes = createBrowserRouter([
   {
@@ -20,6 +21,11 @@ const routes = createBrowserRouter([
   {
     path: '/signup',
     element: <SignupPage />,
+  },
+
+  {
+    path: '/privacy',
+    element: <Privacy />,
   },
 
   {
