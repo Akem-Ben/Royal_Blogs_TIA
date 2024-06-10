@@ -87,7 +87,7 @@ const Navigation = () => {
               <Nav.Link href="#features">Latest News</Nav.Link>
               <Nav.Link href="#pricing">Pages</Nav.Link>
               <Nav.Link href="#pricing">Contact Us</Nav.Link>
-              <Nav.Link href="/privacy">Privacy Policy</Nav.Link>
+              <Nav.Link href="" onClick={()=> navigate('/privacy')}>Privacy Policy</Nav.Link>
             </Nav>
           </div>
 
